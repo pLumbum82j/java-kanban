@@ -23,7 +23,13 @@ public class TaskManager {
     }
 
     //Сделать аналогичню локину, как выше на сабтаск и эпики с выводом списка всех задач
+    public ArrayList<Task> getEpicTask() {
+        return new ArrayList<>(epics.values());
+    }
 
+    public ArrayList<Task> getSubTask() {
+        return new ArrayList<>(subtasks.values());
+    }
     // 2.2 Сделать удаление всех задач через удаление (очищение мапы)
 
     // 2.3 Получение по идентификатору - поиск в мапе по ID, забрать и вывести (ретюрнуть)
@@ -45,6 +51,7 @@ public class TaskManager {
         subtask.setId(generatorId);
         subtasks.put(subtask.getId(), subtask);
         epic.addSubTaskId(subtask.getId());
+
 
         //Логика
         updateEpicStatus(epic);
