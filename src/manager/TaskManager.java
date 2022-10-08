@@ -52,9 +52,9 @@ public class TaskManager {
         subtasks.put(subtask.getId(), subtask);
         epic.addSubTaskId(subtask.getId());
 
-
-        //Логика
         updateEpicStatus(epic);
+        //Логика
+
         generatorId++;
     }
 
@@ -69,9 +69,19 @@ public class TaskManager {
 
     // 2.6 В метод по удалению приходит ID и собственно удалям
     // Не забыть вызвать метод updateEpicStatus(epic); при удалении сабтаска
+    public void delTask(int id) {
+
+        for (Task tasksid : tasks.values()){
+            System.out.println(tasksid);
+            if (id == tasksid.getId()) {
+         //       tasks.clear();
+            }
+        }
+    }
+
 
     //3.1 метод будет получать на вход ID Эпика, будем забирать из мапы Эпиков необходимый эпик,
-    // далее забирать список подзадач  и возвращать наружу
+    // далее забирать список подзадач и возвращать наружу
 
     //4 Управление статусами задач
     private void updateEpicStatus(Epic epic) {
@@ -81,14 +91,14 @@ public class TaskManager {
             return;
         }
         String status = null;
-        for (int subtaskId : subtaskListId){
+        for (int subtaskId : subtaskListId) {
             Subtask subtask = subtasks.get(subtaskId);
 
-            if (status == null){
+            if (status == null) {
                 status = subtask.getStatus();
                 continue;
             }
-            if (status.equals(subtask.getStatus())){
+            if (status.equals(subtask.getStatus())) {
                 continue;
             }
             epic.setStatus("IN PROGRESS");
