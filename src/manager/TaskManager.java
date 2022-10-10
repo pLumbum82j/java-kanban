@@ -163,7 +163,6 @@ public class TaskManager {
         }
     }
 
-
     /**
      * "Пункт 2.6 - Удаление определенного Task по ID"
      */
@@ -182,7 +181,7 @@ public class TaskManager {
     }
 
     /**
-     * "Пункт 2.6 - Удаление определенного SubTask по ID <<<<< Доделать, нужен пересчёт updateEpicStatus(epic)"
+     * "Пункт 2.6 - Удаление определенного SubTask по ID"
      */
     public void delSubTask(int id) {
         Subtask deletedSubtask = subtasks.remove(id);
