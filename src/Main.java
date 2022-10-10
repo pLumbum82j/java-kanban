@@ -73,7 +73,7 @@ public class Main {
         //taskManager.delTask(3);
         //taskManager.delEpic(6);
         //taskManager.delSubTask(9);
-        //System.out.println("Список Subtask :" + taskManager.getSubTask());
+        // System.out.println("Список Subtask :" + taskManager.getSubTask());
 
         // Пункт 3.1
         //System.out.println(taskManager.getSubtaskListEpics(6));

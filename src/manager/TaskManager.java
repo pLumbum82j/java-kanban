@@ -188,11 +188,12 @@ public class TaskManager {
         Subtask deletedSubtask = subtasks.remove(id);
         if (deletedSubtask != null) {
             int deleteEpicId = deletedSubtask.getEpicId();
-            Epic deletedEpic = epics.remove(deleteEpicId);
-            deletedEpic.getSubtaskListId().remove(Integer.valueOf(id));
+            Epic deletedEpic = epics.get(deleteEpicId);
+            deletedEpic.removeSubTaskId(id);
             updateEpicStatus(deletedEpic);
         }
     }
+
 
     /**
      * "Пункт 3.1 - Получение списка всех подзадач определённого эпика"
