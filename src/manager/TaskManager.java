@@ -14,10 +14,9 @@ public class TaskManager {
     /**
      * "Пункт 1 - Хранение данных Task/Epic/Subtask в HashMap"
      */
-    private HashMap<Integer, Task> tasks = new HashMap<>();
-    private HashMap<Integer, Epic> epics = new HashMap<>();
-    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
-
+    private final HashMap<Integer, Task> tasks = new HashMap<>();
+    private final HashMap<Integer, Epic> epics = new HashMap<>();
+    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
     /**
      * "Пункт 2.1 - Получение списка Task"

@@ -51,7 +51,7 @@ public class Main {
         // Пункт 2.2
         //taskManager.clearAll();
         //taskManager.clearTask();
-        //taskManager.clearEpic(); - нужно уточнить, когда удаляются эпики то удаляется ли сабтаски
+        //taskManager.clearEpic();
         //taskManager.clearSubTask();
 
         // Пункт 2.3
@@ -72,6 +72,7 @@ public class Main {
         // Пункт 2.6
         //taskManager.delTask(3);
         //taskManager.delEpic(6);
+        //System.out.println("Список Epic :" + taskManager.getEpicTask());
         //taskManager.delSubTask(9);
         // System.out.println("Список Subtask :" + taskManager.getSubTask());
 
