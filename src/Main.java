@@ -4,7 +4,8 @@
  * @version v1.0
  */
 
-import manager.TaskManager;
+import manager.InMemoryTaskManager;
+import manager.Status;
 import task.Epic;
 import task.Subtask;
 import task.Task;
@@ -12,20 +13,20 @@ import task.Task;
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
         System.out.println("Тесты для проверки");
 
-        Task task1 = new Task("MyTask 1-1", "Description", "NEW");
-        Task task2 = new Task("MyTask 2-2", "Description", "IN PROGRESS");
-        Task task3 = new Task("MyTask 3-3", "Description", "DONE");
+        Task task1 = new Task("MyTask 1-1", "Description", Status.NEW);
+        Task task2 = new Task("MyTask 2-2", "Description", Status.IN_PROGRESS);
+        Task task3 = new Task("MyTask 3-3", "Description", Status.DONE);
         Task task4 = new Task("MyTask 4-4", "Description");
-        Epic epic1 = new Epic("MyEpic 1-5", "Description", "NEW");
-        Epic epic2 = new Epic("MyEpic 2-6", "Description", "IN PROGRESS");
-        Epic epic3 = new Epic("MyEpic 3-7", "Description", "DONE");
+        Epic epic1 = new Epic("MyEpic 1-5", "Description", Status.NEW);
+        Epic epic2 = new Epic("MyEpic 2-6", "Description", Status.IN_PROGRESS);
+        Epic epic3 = new Epic("MyEpic 3-7", "Description", Status.DONE);
         Epic epic4 = new Epic("MyEpic 4-8", "Description");
-        Subtask subtask1 = new Subtask(5, "MySubtask 1-9", "Description", "IN PROGRESS");
-        Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", "DONE");
-        Subtask subtask3 = new Subtask(6, "MySubtask 3-11", "Description", "DONE");
+        Subtask subtask1 = new Subtask(5, "MySubtask 1-9", "Description", Status.IN_PROGRESS);
+        Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", Status.DONE);
+        Subtask subtask3 = new Subtask(6, "MySubtask 3-11", "Description", Status.DONE);
         Subtask subtask4 = new Subtask(6, "MySubtask 4-12", "Description");
 
         // Пункт 2.4
@@ -60,11 +61,11 @@ public class Main {
         //System.out.println(taskManager.getSubTaskId(9));
 
         // Пункт 2.5
-        //taskManager.changeTask(new Task(2, "MyTask 222", "Description", "IN PROGRESS"));
+        //taskManager.changeTask(new Task(2, "MyTask 222", "Description", Status.IN_PROGRESS));
         //System.out.println("Список Task :" + taskManager.getTask());
-        //taskManager.changeEpic(new Epic(5,"MyEpic 777", "Description", "IN PROGRESS"));
+        //taskManager.changeEpic(new Epic(5,"MyEpic 777", "Description", Status.DONE));
         //System.out.println("Список Epic :" + taskManager.getEpicTask());
-        //taskManager.changeSubTask(new Subtask(5,9,"MySubtask 999", "Description", "DONE"));
+        //taskManager.changeSubTask(new Subtask(5,9,"MySubtask 999", "Description", Status.DONE));
         //System.out.println("Список Subtask :" + taskManager.getSubTask());
         //System.out.println("Список Epic :" + taskManager.getEpicTask());
 
