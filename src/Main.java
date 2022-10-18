@@ -5,7 +5,9 @@
  */
 
 import manager.InMemoryTaskManager;
+import manager.Managers;
 import manager.Status;
+import manager.TaskManager;
 import task.Epic;
 import task.Subtask;
 import task.Task;
@@ -13,7 +15,7 @@ import task.Task;
 public class Main {
 
     public static void main(String[] args) {
-        InMemoryTaskManager taskManager = new InMemoryTaskManager();
+        TaskManager manager = Managers.getDefault();
         System.out.println("Тесты для проверки");
 
         Task task1 = new Task("MyTask 1-1", "Description", Status.NEW);
@@ -30,55 +32,60 @@ public class Main {
         Subtask subtask4 = new Subtask(6, "MySubtask 4-12", "Description");
 
         // Пункт 2.4
-        taskManager.addTask(task1);
-        taskManager.addTask(task2);
-        taskManager.addTask(task3);
-        taskManager.addTask(task4);
-        taskManager.addEpicTask(epic1);
-        taskManager.addEpicTask(epic2);
-        taskManager.addEpicTask(epic3);
-        taskManager.addEpicTask(epic4);
-        taskManager.addSubTask(subtask1);
-        taskManager.addSubTask(subtask2);
-        taskManager.addSubTask(subtask3);
-        taskManager.addSubTask(subtask4);
+        manager.addTask(task1);
+        manager.addTask(task2);
+        manager.addTask(task3);
+        manager.addTask(task4);
+        manager.addEpicTask(epic1);
+        manager.addEpicTask(epic2);
+        manager.addEpicTask(epic3);
+        manager.addEpicTask(epic4);
+        manager.addSubTask(subtask1);
+        manager.addSubTask(subtask2);
+        manager.addSubTask(subtask3);
+        manager.addSubTask(subtask4);
         System.out.println("Все Task/Epic/Subtask загружены");
 
         // Пункт 2.1
-        //System.out.println("Список Task :" + taskManager.getTask());
-        //System.out.println("Список Epic :" + taskManager.getEpicTask());
-        //System.out.println("Список Subtask :" + taskManager.getSubTask());
+//        System.out.println("Список Task :" + manager.getTask());
+//        System.out.println("Список Epic :" + manager.getEpicTask());
+//        System.out.println("Список Subtask :" + manager.getSubTask());
 
         // Пункт 2.2
-        //taskManager.clearAll();
-        //taskManager.clearTask();
-        //taskManager.clearEpic();
-        //taskManager.clearSubTask();
+//        manager.clearAll();
+//        manager.clearTask();
+//        manager.clearEpic();
+//        manager.clearSubTask();
 
         // Пункт 2.3
-        //System.out.println(taskManager.getTaskId(3));
-        //System.out.println(taskManager.getEpicId(6));
-        //System.out.println(taskManager.getSubTaskId(9));
+//        System.out.println(manager.getTaskId(3));
+//        System.out.println(manager.getEpicId(6));
+//        System.out.println(manager.getSubTaskId(9));
 
         // Пункт 2.5
-        //taskManager.changeTask(new Task(2, "MyTask 222", "Description", Status.IN_PROGRESS));
-        //System.out.println("Список Task :" + taskManager.getTask());
-        //taskManager.changeEpic(new Epic(5,"MyEpic 777", "Description", Status.DONE));
-        //System.out.println("Список Epic :" + taskManager.getEpicTask());
-        //taskManager.changeSubTask(new Subtask(5,9,"MySubtask 999", "Description", Status.DONE));
-        //System.out.println("Список Subtask :" + taskManager.getSubTask());
-        //System.out.println("Список Epic :" + taskManager.getEpicTask());
+//        manager.changeTask(new Task(2, "MyTask 222", "Description", Status.IN_PROGRESS));
+//        System.out.println("Список Task :" + manager.getTask());
+//        manager.changeEpic(new Epic(5,"MyEpic 777", "Description", Status.DONE));
+//        System.out.println("Список Epic :" + manager.getEpicTask());
+//        manager.changeSubTask(new Subtask(5,9,"MySubtask 999", "Description", Status.DONE));
+//        System.out.println("Список Subtask :" + manager.getSubTask());
+//        System.out.println("Список Epic :" + manager.getEpicTask());
 
 
         // Пункт 2.6
-        //taskManager.delTask(3);
-        //taskManager.delEpic(6);
-        //System.out.println("Список Epic :" + taskManager.getEpicTask());
-        //taskManager.delSubTask(9);
-        // System.out.println("Список Subtask :" + taskManager.getSubTask());
+//        manager.delTask(3);
+//        manager.delEpic(6);
+//        System.out.println("Список Epic :" + manager.getEpicTask());
+//        manager.delSubTask(9);
+//         System.out.println("Список Subtask :" + manager.getSubTask());
 
         // Пункт 3.1
-        //System.out.println(taskManager.getSubtaskListEpics(6));
+//        System.out.println(manager.getSubtaskListEpics(6));
 
+        manager.getTaskId(0);
+        manager.getTaskId(222);
+        manager.getSubTaskId(9);
+        manager.getTaskId(1);
+        System.out.println(manager.getHistory());
     }
 }
