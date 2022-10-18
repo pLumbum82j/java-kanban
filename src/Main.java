@@ -1,10 +1,9 @@
 /**
  * «Трекер задач»
  * @autor Илья Смирнов
- * @version v1.0
+ * @version v2.0
  */
 
-import manager.InMemoryTaskManager;
 import manager.Managers;
 import manager.Status;
 import manager.TaskManager;
@@ -46,6 +45,36 @@ public class Main {
         manager.addSubTask(subtask4);
         System.out.println("Все Task/Epic/Subtask загружены");
 
+        // Спринт 4
+        manager.getTaskId(222); // проверка на null (несуществующий task)
+        manager.getTaskId(1);
+        manager.getTaskId(2);
+        manager.getTaskId(3);
+        manager.getTaskId(4);
+        manager.getEpicId(5);
+        manager.getEpicId(6);
+        manager.getEpicId(7);
+        manager.getEpicId(8);
+        manager.getSubTaskId(9);
+        manager.getSubTaskId(10);
+        System.out.println(manager.getHistory());
+        System.out.println("Проверка, что история содержит id с 1 по 10");
+        System.out.println("--------------");
+        manager.getSubTaskId(11);
+        manager.getSubTaskId(12);
+        System.out.println(manager.getHistory());
+        System.out.println("Проверка, что история содержит id с 3 по 12 т.к. вызывали 2-а SubTask'a и положили в конец списка");
+        System.out.println("--------------");
+        manager.getTaskId(1);
+        manager.getTaskId(2);
+        manager.getTaskId(3);
+        manager.getTaskId(4);
+        manager.getEpicId(5);
+        System.out.println(manager.getHistory());
+        System.out.println("Проверка, что история содержит id с 8 по 12 и с 1 по 5 т.к. вызывали 4-а Task'a и 1-н Epic и положили в конец списка");
+        System.out.println("--------------");
+
+        // Спринт 3
         // Пункт 2.1
 //        System.out.println("Список Task :" + manager.getTask());
 //        System.out.println("Список Epic :" + manager.getEpicTask());
@@ -68,7 +97,7 @@ public class Main {
 //        manager.changeEpic(new Epic(5,"MyEpic 777", "Description", Status.DONE));
 //        System.out.println("Список Epic :" + manager.getEpicTask());
 //        manager.changeSubTask(new Subtask(5,9,"MySubtask 999", "Description", Status.DONE));
-//        System.out.println("Список Subtask :" + manager.getSubTask());
+//       System.out.println("Список Subtask :" + manager.getSubTask());
 //        System.out.println("Список Epic :" + manager.getEpicTask());
 
 
@@ -82,10 +111,5 @@ public class Main {
         // Пункт 3.1
 //        System.out.println(manager.getSubtaskListEpics(6));
 
-        manager.getTaskId(0);
-        manager.getTaskId(222);
-        manager.getSubTaskId(9);
-        manager.getTaskId(1);
-        System.out.println(manager.getHistory());
     }
 }
