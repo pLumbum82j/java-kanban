@@ -30,7 +30,7 @@ public class Main {
         Subtask subtask3 = new Subtask(6, "MySubtask 3-11", "Description", Status.DONE);
         Subtask subtask4 = new Subtask(6, "MySubtask 4-12", "Description");
 
-        // Пункт 2.4
+        // Спринт 3 - Пункт 2.4
         manager.addTask(task1);
         manager.addTask(task2);
         manager.addTask(task3);
@@ -46,10 +46,10 @@ public class Main {
         System.out.println("Все Task/Epic/Subtask загружены");
 
         // Спринт 4
-        manager.getTaskId(222); // проверка на null (несуществующий task)
         manager.getTaskId(1);
         manager.getTaskId(2);
         manager.getTaskId(3);
+        manager.getTaskId(222); // проверка на null (несуществующий task)
         manager.getTaskId(4);
         manager.getEpicId(5);
         manager.getEpicId(6);
