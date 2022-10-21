@@ -7,116 +7,159 @@ import task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * "Интерфейс открытых методов для использования любыми Task менеджерами"
+ */
 public interface TaskManager {
 
     /**
-     * "Спринт 4 - Получаем список history через класс Manager и метод getDefaultHistory()"
+     * "Метод получения списка history"
+     *
+     * @return список последних опрошенных задач
      */
     List<Task> getHistory();
 
     /**
-     * "Спринт 3 - Пункт 2.1 - Получение списка Task"
+     * "Метод получения списка Task"
+     *
+     * @return список Task
      */
     ArrayList<Task> getTask();
 
     /**
-     * "Спринт 3 - Пункт 2.1 - Получение списка EpicTask"
+     * "Метод прлучения списка EpicTask"
+     *
+     * @return список EpicTask
      */
     ArrayList<Task> getEpicTask();
 
     /**
-     * "Спринт 3 - Пункт 2.1 - Получение списка SubTask"
+     * "Метод получения списка SubTask"
+     *
+     * @return список SubTask
      */
     ArrayList<Task> getSubTask();
 
     /**
-     * "Спринт 3 - Пункт 2.2 - Удаление всех списков задач"
+     * "Метод удаления всех списков задач"
      */
     void clearAll();
 
     /**
-     * "Спринт 3 - Пункт 2.2 - Удаление всех списка Task"
+     * "Метод удаления всего списка Task"
      */
     void clearTask();
 
     /**
-     * "Спринт 3 - Пункт 2.2 - Удаление всех списка EpicTask и SubTask"
+     * "Метод удаления списка EpicTask и SubTask"
      */
     void clearEpic();
 
     /**
-     * "Спринт 3 - Пункт 2.2 - Удаление всех списка SubTask"
+     * "Метод удаления списка SubTask"
      */
     void clearSubTask();
 
     /**
-     * "Спринт 3 - Пункт 2.3 - Получение определённого Task по ID"
+     * "Метод получения определённого Task по ID"
+     *
+     * @param id Task id
+     * @return объект списка Task
      */
-    Task getTaskId(int id);
+    Task getTaskById(int id);
 
     /**
-     * "Спринт 3 - Пункт 2.3 - Получение определённого EpicTask по ID"
+     * "Метод получения определённого Epic по ID"
+     *
+     * @param id Epic id
+     * @return объект списка Epic
      */
-    Task getEpicId(int id);
+    Task getEpicById(int id);
 
     /**
-     * "Спринт 3 - Пункт 2.3 - Получение определённого SubTask по ID"
+     * "Метод получения определённого SubTask по ID"
+     *
+     * @param id SubTask id
+     * @return объект списка SubTask
      */
-    Task getSubTaskId(int id);
+    Task getSubTaskById(int id);
 
     /**
-     * "Спринт 3 - Пункт 2.4 - Создание Task"
+     * "Метод создания Task"
+     *
+     * @param task объект Task
      */
     void addTask(Task task);
 
     /**
-     * "Спринт 3 - Пункт 2.4 - Создание EpicTask"
+     * "Метод создания EpicTask"
+     *
+     * @param epic объект Epic
      */
     void addEpicTask(Epic epic);
 
     /**
-     * "Спринт 3 - Пункт 2.4 - Создание SubTask"
+     * "Метод создания SubTask"
+     *
+     * @param subtask объект SubTask
      */
     void addSubTask(Subtask subtask);
 
     /**
-     * "Спринт 3 - Пункт 2.5 - Изменение определенного Task по ID"
+     * "Метод изменения определенного Task по ID"
+     *
+     * @param task объект Task
      */
     void changeTask(Task task);
 
     /**
-     * "Спринт 3 - Пункт 2.5 - Изменение определенного Epic по ID"
+     * "Метод изменения определенного Epic по ID"
+     *
+     * @param epic объект Epic
      */
     void changeEpic(Epic epic);
 
     /**
-     * "Спринт 3 - Пункт 2.5 - Изменение определенного Subtask по ID"
+     * "Метод изменения определенного по ID"
+     *
+     * @param subtask объект SubTask
      */
     void changeSubTask(Subtask subtask);
 
     /**
-     * "Спринт 3 - Пункт 2.6 - Удаление определенного Task по ID"
+     * "Метод удаления определенного Task по ID"
+     *
+     * @param id Task id
      */
     void delTask(int id);
 
     /**
-     * "Спринт 3 - Пункт 2.6 - Удаление определенного EpicTask по ID"
+     * "Метод удаления определенного EpicTask по ID"
+     *
+     * @param id EpicTask id
      */
     void delEpic(int id);
 
     /**
-     * "Спринт 3 - Пункт 2.6 - Удаление определенного SubTask по ID"
+     * "Метод удаления определенного SubTask по ID"
+     *
+     * @param id SubTask id
      */
     void delSubTask(int id);
 
 
     /**
-     * "Спринт 3 - Пункт 3.1 - Получение списка всех подзадач определённого эпика"
+     * "Метод получения списка всех SubTask определённого Epic"
+     *
+     * @param id Epic id
+     * @return Список SubTask
      */
     ArrayList<Subtask> getSubtaskListEpics(int id);
 
     /**
-     * "Спринт 3 - Пункт 4.2 - Определение статуса EpicTask при создании или изменении SubTask"
+     * "Метод определения статуса EpicTask при создании или изменении SubTask"
+     *
+     * @param epic Epic id
      */
     void updateEpicStatus(Epic epic);
 }

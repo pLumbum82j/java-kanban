@@ -4,19 +4,24 @@ import manager.history.HistoryManager;
 import manager.history.InMemoryHistoryManager;
 
 /**
- * "Спринт 4 - Утилитарный класс"
+ * "Утилитарный класс"
  */
 public class Managers {
     /**
-     * "Спринт 4 - Метод трекера по умолчанию"
+     * "Метод трекера по умолчанию"
+     *
+     * @return Объекты класса InMemoryTaskManager
      */
-    public static TaskManager getDefault(){
+    public static TaskManager getDefault() {
         return new InMemoryTaskManager();
     }
+
     /**
-     * "Спринт 4 - Метод истории просмотров"
+     * "Метод истории просмотров"
+     *
+     * @return Объекты класса InMemoryHistoryManager
      */
-    public static HistoryManager getDefaultHistory(){
+    public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
 }

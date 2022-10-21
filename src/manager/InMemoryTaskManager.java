@@ -14,9 +14,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     private int generatorId = 1;
 
-    /**
-     * "Пункт 1 - Хранение данных Task/Epic/Subtask в HashMap"
-     */
     private final HashMap<Integer, Task> tasks = new HashMap<>();
     private final HashMap<Integer, Epic> epics = new HashMap<>();
     private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
@@ -72,19 +69,19 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task getTaskId(int id) {
+    public Task getTaskById(int id) {
         defaultHistory.add(tasks.get(id));
         return tasks.get(id);
     }
 
     @Override
-    public Task getEpicId(int id) {
+    public Task getEpicById(int id) {
         defaultHistory.add(epics.get(id));
         return epics.get(id);
     }
 
     @Override
-    public Task getSubTaskId(int id) {
+    public Task getSubTaskById(int id) {
         defaultHistory.add(subtasks.get(id));
         return subtasks.get(id);
     }
@@ -201,5 +198,4 @@ public class InMemoryTaskManager implements TaskManager {
         }
         epic.setStatus(status);
     }
-
 }

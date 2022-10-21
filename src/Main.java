@@ -46,30 +46,30 @@ public class Main {
         System.out.println("Все Task/Epic/Subtask загружены");
 
         // Спринт 4
-        manager.getTaskId(1);
-        manager.getTaskId(2);
-        manager.getTaskId(3);
-        manager.getTaskId(222); // проверка на null (несуществующий task)
-        manager.getTaskId(4);
-        manager.getEpicId(5);
-        manager.getEpicId(6);
-        manager.getEpicId(7);
-        manager.getEpicId(8);
-        manager.getSubTaskId(9);
-        manager.getSubTaskId(10);
+        manager.getTaskById(1);
+        manager.getTaskById(2);
+        manager.getTaskById(3);
+        manager.getTaskById(222); // проверка на null (несуществующий task)
+        manager.getTaskById(4);
+        manager.getEpicById(5);
+        manager.getEpicById(6);
+        manager.getEpicById(7);
+        manager.getEpicById(8);
+        manager.getSubTaskById(9);
+        manager.getSubTaskById(10);
         System.out.println(manager.getHistory());
         System.out.println("Проверка, что история содержит id с 1 по 10");
         System.out.println("--------------");
-        manager.getSubTaskId(11);
-        manager.getSubTaskId(12);
+        manager.getSubTaskById(11);
+        manager.getSubTaskById(12);
         System.out.println(manager.getHistory());
         System.out.println("Проверка, что история содержит id с 3 по 12 т.к. вызывали 2-а SubTask'a и положили в конец списка");
         System.out.println("--------------");
-        manager.getTaskId(1);
-        manager.getTaskId(2);
-        manager.getTaskId(3);
-        manager.getTaskId(4);
-        manager.getEpicId(5);
+        manager.getTaskById(1);
+        manager.getTaskById(2);
+        manager.getTaskById(3);
+        manager.getTaskById(4);
+        manager.getEpicById(5);
         System.out.println(manager.getHistory());
         System.out.println("Проверка, что история содержит id с 8 по 12 и с 1 по 5 т.к. вызывали 4-а Task'a и 1-н Epic и положили в конец списка");
         System.out.println("--------------");

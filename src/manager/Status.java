@@ -1,7 +1,7 @@
 package manager;
 
 /**
- * "Спринт 4 - Статус задач ENUM"
+ * "Статус задач ENUM"
  */
 public enum Status {
     NEW,
