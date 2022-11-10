@@ -58,10 +58,10 @@ public class Main {
         System.out.println(manager.getHistory());
         System.out.println("Проверка, что история содержит id с 5 по 12");
 
-        manager.getTaskById(11);
-        manager.getTaskById(12);
-        manager.getTaskById(10);
-        manager.getTaskById(5);
+        manager.getSubTaskById(11);
+        manager.getSubTaskById(9);
+        manager.getSubTaskById(10);
+        manager.getEpicById(5);
         manager.getEpicById(7);
         System.out.println(manager.getHistory());
         System.out.println("Проверка, что история изменяется и новый вызванный Task падает в конец списка");

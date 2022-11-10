@@ -10,7 +10,7 @@ import java.util.Map;
 public class InMemoryHistoryManager implements HistoryManager {
 
     /**
-     * Класс "узлов" в котором расположен Task ссылка на предыдущую Node и следующую Node
+     * Класс "узлов" в котором расположен Task, ссылка на предыдущую Nod'у и следующую Nod'у
      */
     static class Node {
         Task value;
