@@ -1,7 +1,7 @@
 /**
  * «Трекер задач»
  * @autor Илья Смирнов
- * @version v2.0
+ * @version v3.0
  */
 
 import manager.Managers;
@@ -27,10 +27,10 @@ public class Main {
         Epic epic4 = new Epic("MyEpic 4-8", "Description");
         Subtask subtask1 = new Subtask(5, "MySubtask 1-9", "Description", Status.IN_PROGRESS);
         Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", Status.DONE);
-        Subtask subtask3 = new Subtask(6, "MySubtask 3-11", "Description", Status.DONE);
+        Subtask subtask3 = new Subtask(5, "MySubtask 3-11", "Description", Status.DONE);
         Subtask subtask4 = new Subtask(6, "MySubtask 4-12", "Description");
 
-        // Спринт 3 - Пункт 2.4
+
         manager.addTask(task1);
         manager.addTask(task2);
         manager.addTask(task3);
@@ -45,71 +45,27 @@ public class Main {
         manager.addSubTask(subtask4);
         System.out.println("Все Task/Epic/Subtask загружены");
 
-        // Спринт 4
-        manager.getTaskById(1);
-        manager.getTaskById(2);
-        manager.getTaskById(3);
-        manager.getTaskById(222); // проверка на null (несуществующий task)
-        manager.getTaskById(4);
+
+
         manager.getEpicById(5);
         manager.getEpicById(6);
         manager.getEpicById(7);
         manager.getEpicById(8);
         manager.getSubTaskById(9);
         manager.getSubTaskById(10);
-        System.out.println(manager.getHistory());
-        System.out.println("Проверка, что история содержит id с 1 по 10");
-        System.out.println("--------------");
         manager.getSubTaskById(11);
         manager.getSubTaskById(12);
         System.out.println(manager.getHistory());
-        System.out.println("Проверка, что история содержит id с 3 по 12 т.к. вызывали 2-а SubTask'a и положили в конец списка");
-        System.out.println("--------------");
-        manager.getTaskById(1);
-        manager.getTaskById(2);
-        manager.getTaskById(3);
-        manager.getTaskById(4);
-        manager.getEpicById(5);
+        System.out.println("Проверка, что история содержит id с 5 по 12");
+
+        manager.getTaskById(11);
+        manager.getTaskById(12);
+        manager.getTaskById(10);
+        manager.getTaskById(5);
+        manager.getEpicById(7);
         System.out.println(manager.getHistory());
-        System.out.println("Проверка, что история содержит id с 8 по 12 и с 1 по 5 т.к. вызывали 4-а Task'a и 1-н Epic и положили в конец списка");
+        System.out.println("Проверка, что история изменяется и новый вызванный Task падает в конец списка");
         System.out.println("--------------");
-
-        // Спринт 3
-        // Пункт 2.1
-//        System.out.println("Список Task :" + manager.getTask());
-//        System.out.println("Список Epic :" + manager.getEpicTask());
-//        System.out.println("Список Subtask :" + manager.getSubTask());
-
-        // Пункт 2.2
-//        manager.clearAll();
-//        manager.clearTask();
-//        manager.clearEpic();
-//        manager.clearSubTask();
-
-        // Пункт 2.3
-//        System.out.println(manager.getTaskId(3));
-//        System.out.println(manager.getEpicId(6));
-//        System.out.println(manager.getSubTaskId(9));
-
-        // Пункт 2.5
-//        manager.changeTask(new Task(2, "MyTask 222", "Description", Status.IN_PROGRESS));
-//        System.out.println("Список Task :" + manager.getTask());
-//        manager.changeEpic(new Epic(5,"MyEpic 777", "Description", Status.DONE));
-//        System.out.println("Список Epic :" + manager.getEpicTask());
-//        manager.changeSubTask(new Subtask(5,9,"MySubtask 999", "Description", Status.DONE));
-//       System.out.println("Список Subtask :" + manager.getSubTask());
-//        System.out.println("Список Epic :" + manager.getEpicTask());
-
-
-        // Пункт 2.6
-//        manager.delTask(3);
-//        manager.delEpic(6);
-//        System.out.println("Список Epic :" + manager.getEpicTask());
-//        manager.delSubTask(9);
-//         System.out.println("Список Subtask :" + manager.getSubTask());
-
-        // Пункт 3.1
-//        System.out.println(manager.getSubtaskListEpics(6));
 
     }
 }
