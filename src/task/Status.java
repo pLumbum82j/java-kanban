@@ -1,4 +1,4 @@
-package manager;
+package task;
 
 /**
  * "Статус задач ENUM"

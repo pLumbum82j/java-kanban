@@ -2,12 +2,10 @@ package manager.history;
 
 import task.Task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
+
 
     /**
      * Класс "узлов" в котором расположен Task, ссылка на предыдущую Nod'у и следующую Nod'у
@@ -37,7 +35,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (task == null) {
             return;
         }
-        remove(task.getId());
         linkLast(task);
         nodes.put(task.getId(), tail);
     }
@@ -69,7 +66,8 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        changeNode(nodes.get(id));
+        nodes.remove(id);
+
     }
 
     @Override
@@ -82,6 +80,10 @@ public class InMemoryHistoryManager implements HistoryManager {
      * @param task Задача
      */
     public void linkLast(Task task) {
+        if (nodes.containsKey(task.getId())) {
+            changeNode(nodes.get(task.getId()));
+            remove(task.getId());
+        }
         final Node oldTail = tail;
         final Node newNode = new Node(task, oldTail, null);
         tail = newNode;

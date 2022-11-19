@@ -1,11 +1,11 @@
 /**
  * «Трекер задач»
  * @autor Илья Смирнов
- * @version v3.0
+ * @version v5.1
  */
 
 import manager.Managers;
-import manager.Status;
+import task.Status;
 import manager.TaskManager;
 import task.Epic;
 import task.Subtask;
