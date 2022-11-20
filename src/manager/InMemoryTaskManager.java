@@ -1,6 +1,7 @@
 package manager;
 
 import manager.history.HistoryManager;
+import manager.history.InMemoryHistoryManager;
 import task.Epic;
 import task.Status;
 import task.Subtask;
@@ -43,24 +44,36 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void clearAll() {
-        tasks.clear();
-        epics.clear();
-        subtasks.clear();
+        clearTask();
+        clearEpic();
     }
 
     @Override
     public void clearTask() {
+        for (Task task : tasks.values()) {
+            defaultHistory.remove(task.getId());
+        }
         tasks.clear();
     }
 
     @Override
     public void clearEpic() {
-        epics.clear();
+        for (Task subtask : subtasks.values()) {
+            defaultHistory.remove(subtask.getId());
+        }
+        for (Task epic : epics.values()) {
+            defaultHistory.remove(epic.getId());
+        }
         subtasks.clear();
+        epics.clear();
+
     }
 
     @Override
     public void clearSubTask() {
+        for (Task subtask : subtasks.values()) {
+            defaultHistory.remove(subtask.getId());
+        }
         subtasks.clear();
         for (Epic epic : epics.values()) {
             epic.clearSubTaskId();
@@ -144,6 +157,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void delTask(int id) {
         tasks.remove(id);
+        defaultHistory.remove(id);
     }
 
     @Override
@@ -151,7 +165,9 @@ public class InMemoryTaskManager implements TaskManager {
         Epic deletedEpic = epics.remove(id);
         for (Integer subtaskId : deletedEpic.getSubtaskListId()) {
             subtasks.remove(subtaskId);
+            defaultHistory.remove(subtaskId);
         }
+        defaultHistory.remove(id);
     }
 
     @Override
@@ -163,6 +179,7 @@ public class InMemoryTaskManager implements TaskManager {
             deletedEpic.removeSubTaskId(id);
             updateEpicStatus(deletedEpic);
         }
+        defaultHistory.remove(id);
     }
 
     @Override

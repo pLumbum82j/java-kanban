@@ -35,19 +35,32 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (task == null) {
             return;
         }
+        if (nodes.containsKey(task.getId())) {
+            changeNode(nodes.get(task.getId()));
+        }
         linkLast(task);
         nodes.put(task.getId(), tail);
     }
 
+    @Override
+    public void remove(int id) {
+        changeNode(nodes.get(id));
+    }
+
+    @Override
+    public List<Task> getHistory() {
+        return getTasks();
+    }
+
     /**
-     * "Изменение ссылок Nod'ы"
+     * "Изменение состояния Nod'ы "
+     *
      * @param node Узел
      */
-    public void changeNode(Node node) {
+    private void changeNode(Node node) {
         if (node != null) {
             final Node next = node.next;
             final Node prev = node.prev;
-            node.value = null;
             if (head == node && tail == node) {
                 head = null;
                 tail = null;
@@ -61,29 +74,17 @@ public class InMemoryHistoryManager implements HistoryManager {
                 prev.next = next;
                 next.prev = prev;
             }
+            nodes.remove(node.value.getId());
+            node.value = null;
         }
-    }
-
-    @Override
-    public void remove(int id) {
-        nodes.remove(id);
-
-    }
-
-    @Override
-    public List<Task> getHistory() {
-        return getTasks();
     }
 
     /**
      * "Добавление Task'и в конец мапы nodes"
+     *
      * @param task Задача
      */
-    public void linkLast(Task task) {
-        if (nodes.containsKey(task.getId())) {
-            changeNode(nodes.get(task.getId()));
-            remove(task.getId());
-        }
+    private void linkLast(Task task) {
         final Node oldTail = tail;
         final Node newNode = new Node(task, oldTail, null);
         tail = newNode;
@@ -97,9 +98,10 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     /**
      * "Метод получения истории просмотров"
+     *
      * @return Список задач
      */
-    public List<Task> getTasks() {
+    private List<Task> getTasks() {
         List<Task> history = new ArrayList<>();
         Node currentNode = head;
         while (currentNode != null) {
