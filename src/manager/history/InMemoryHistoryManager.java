@@ -61,13 +61,13 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (node != null) {
             final Node next = node.next;
             final Node prev = node.prev;
-            if (head == node && tail == node) {
+            if (head.equals(node) && tail.equals(node)) {
                 head = null;
                 tail = null;
-            } else if (head == node) {
+            } else if (head.equals(node)) {
                 head = next;
                 head.prev = null;
-            } else if (tail == node) {
+            } else if (tail.equals(node)) {
                 tail = prev;
                 tail.next = null;
             } else {

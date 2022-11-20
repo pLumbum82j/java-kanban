@@ -2,7 +2,7 @@
  * «Трекер задач»
  *
  * @autor Илья Смирнов
- * @version v5.2
+ * @version v5.3
  */
 
 import manager.Managers;
