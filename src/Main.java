@@ -2,7 +2,7 @@
  * «Трекер задач»
  *
  * @autor Илья Смирнов
- * @version v5.3
+ * @version v5.4
  */
 
 import manager.Managers;
@@ -47,25 +47,25 @@ public class Main {
         System.out.println("Все Task/Epic/Subtask загружены");
 
 
-//        manager.getEpicById(5);
-//        manager.getEpicById(6);
-//        manager.getEpicById(7);
-//        manager.getEpicById(8);
-//        manager.getSubTaskById(9);
-//        manager.getSubTaskById(10);
-//        manager.getSubTaskById(11);
-//        manager.getSubTaskById(12);
-//        System.out.println(manager.getHistory());
-//        System.out.println("Проверка, что история содержит id с 5 по 12");
-//
-//        manager.getSubTaskById(11);
-//        manager.getSubTaskById(9);
-//        manager.getSubTaskById(10);
-//        manager.getEpicById(5);
-//        manager.getEpicById(7);
-//        System.out.println(manager.getHistory());
-//        System.out.println("Проверка, что история изменяется и новый вызванный Task падает в конец списка");
-//        System.out.println("--------------");
+        manager.getEpicById(5);
+        manager.getEpicById(6);
+        manager.getEpicById(7);
+        manager.getEpicById(8);
+        manager.getSubTaskById(9);
+        manager.getSubTaskById(10);
+        manager.getSubTaskById(11);
+        manager.getSubTaskById(12);
+        System.out.println(manager.getHistory());
+        System.out.println("Проверка, что история содержит id с 5 по 12");
+
+        manager.getSubTaskById(11);
+        manager.getSubTaskById(9);
+        manager.getSubTaskById(10);
+        manager.getEpicById(5);
+        manager.getEpicById(7);
+        System.out.println(manager.getHistory());
+        System.out.println("Проверка, что история изменяется и новый вызванный Task падает в конец списка");
+        System.out.println("--------------");
 //
 //        manager.getTaskById(1);
 //        manager.getSubTaskById(11);

@@ -36,7 +36,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             return;
         }
         if (nodes.containsKey(task.getId())) {
-            changeNode(nodes.get(task.getId()));
+            changeNode(task.getId());
         }
         linkLast(task);
         nodes.put(task.getId(), tail);
@@ -44,7 +44,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        changeNode(nodes.get(id));
+        changeNode(id);
     }
 
     @Override
@@ -55,9 +55,10 @@ public class InMemoryHistoryManager implements HistoryManager {
     /**
      * "Изменение состояния Nod'ы "
      *
-     * @param node Узел
+     * @param id Узла, по которому требуется изменения
      */
-    private void changeNode(Node node) {
+    private void changeNode(int id) {
+       Node node = nodes.remove(id);
         if (node != null) {
             final Node next = node.next;
             final Node prev = node.prev;
@@ -74,7 +75,6 @@ public class InMemoryHistoryManager implements HistoryManager {
                 prev.next = next;
                 next.prev = prev;
             }
-            nodes.remove(node.value.getId());
             node.value = null;
         }
     }
