@@ -55,4 +55,18 @@ public class Epic extends Task {
     public int hashCode() {
         return Objects.hash(super.hashCode(), subtaskListId);
     }
+
+
+    /**
+     * !! Будет отдавать нуль когда запросят у эпика ID эпика к которому он подключен
+     * @return
+     */
+    @Override
+    public Integer getEpicId() {
+        return null;
+    }
+
+    public String toString() {
+        return String.format("%d,%s,%s,%s,%s\n", id, TaskType.EPIC, status, name, description);
+    }
 }

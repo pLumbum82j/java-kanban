@@ -58,7 +58,7 @@ public class InMemoryHistoryManager implements HistoryManager {
      * @param id Узла, по которому требуется изменения
      */
     private void changeNode(int id) {
-       Node node = nodes.remove(id);
+        Node node = nodes.remove(id);
         if (node != null) {
             final Node next = node.next;
             final Node prev = node.prev;

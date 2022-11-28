@@ -16,11 +16,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     private int generatorId = 1;
 
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
-    private final HashMap<Integer, Epic> epics = new HashMap<>();
-    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    protected final HashMap<Integer, Task> tasks = new HashMap<>();
+    protected final HashMap<Integer, Epic> epics = new HashMap<>();
+    protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
-    private HistoryManager defaultHistory = Managers.getDefaultHistory();
+    protected HistoryManager defaultHistory = Managers.getDefaultHistory();
 
     @Override
     public List<Task> getHistory() {
@@ -216,4 +216,5 @@ public class InMemoryTaskManager implements TaskManager {
         }
         epic.setStatus(status);
     }
+
 }

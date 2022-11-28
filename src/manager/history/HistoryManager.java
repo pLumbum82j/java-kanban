@@ -27,5 +27,4 @@ public interface HistoryManager {
      * @param id Задачи
      */
     void remove(int id);
-
 }

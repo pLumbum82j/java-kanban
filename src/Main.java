@@ -5,6 +5,7 @@
  * @version v5.4
  */
 
+import manager.FileBackedTasksManager;
 import manager.Managers;
 import task.Status;
 import manager.TaskManager;
@@ -66,26 +67,26 @@ public class Main {
         System.out.println(manager.getHistory());
         System.out.println("Проверка, что история изменяется и новый вызванный Task падает в конец списка");
         System.out.println("--------------");
-//
-//        manager.getTaskById(1);
-//        manager.getSubTaskById(11);
-//        manager.getEpicById(5);
-//        manager.getSubTaskById(9);
-//        manager.getSubTaskById(10);
-//        System.out.println(manager.getHistory());
-//        System.out.println("--------------");
-//        manager.delTask(1);
-//        System.out.println(manager.getHistory());
-//        System.out.println("После удаления Task #1 - он пропал из списка истории");
-//        System.out.println();
-//        manager.delSubTask(11);
-//        System.out.println(manager.getHistory());
-//        System.out.println("После удаления SubTask #11 - он пропал из списка истории");
-//        System.out.println();
-//        manager.getSubTaskById(11);
-//        manager.delEpic(5);
-//        System.out.println(manager.getHistory());
-//        System.out.println("После удаления Epic #5 - он пропал из списка истории, а так же Subtask 9,10,11");
+
+        manager.getTaskById(1);
+        manager.getSubTaskById(11);
+        manager.getEpicById(5);
+        manager.getSubTaskById(9);
+        manager.getSubTaskById(10);
+        System.out.println(manager.getHistory());
+        System.out.println("--------------");
+        manager.delTask(1);
+        System.out.println(manager.getHistory());
+        System.out.println("После удаления Task #1 - он пропал из списка истории");
+        System.out.println();
+        manager.delSubTask(11);
+        System.out.println(manager.getHistory());
+        System.out.println("После удаления SubTask #11 - он пропал из списка истории");
+        System.out.println();
+        manager.getSubTaskById(11);
+        manager.delEpic(5);
+        System.out.println(manager.getHistory());
+        System.out.println("После удаления Epic #5 - он пропал из списка истории, а так же Subtask 9,10,11");
 //
 //
 //        manager.getTaskById(2);
