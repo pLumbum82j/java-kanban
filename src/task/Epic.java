@@ -57,22 +57,13 @@ public class Epic extends Task {
     }
 
 
-    /**
-     * !! Будет отдавать нуль когда запросят у эпика ID эпика к которому он подключен
-     * @return
-     */
-    @Override
-    public int getEpicId() {
-        return 0;
-    }
-
     public String toString() {
         return String.format("%d,%s,%s,%s,%s\n", id, TaskType.EPIC, status, name, description);
     }
 
     /**
-     * "Метод преобразования информаци из строки в задачу"
-     * @param value Получнная строка из файла tasks.csv
+     * "Метод преобразования информации из строки в задачу"
+     * @param value Полученная строка из файла tasks.csv
      * @return Результат преобразования строки в задачу
      */
     public static Epic fromString(String value) {

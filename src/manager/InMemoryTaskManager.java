@@ -217,10 +217,10 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     /**
-     * !!! Добавить subtask в epic без ID
-     * @param subTask
+     * "Метод добавления ID Epic'a в subtask"
+     * @param subTask Subtask
      */
-    protected void addSubtaskInEpicWithoutID(Subtask subTask){
+    protected void addEpicIdForSubtask(Subtask subTask){
         int epicId = subTask.getEpicId();
         Epic epic = epics.get(epicId);
 

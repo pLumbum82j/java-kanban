@@ -21,7 +21,10 @@ public class Subtask extends Task{
     }
 
 
-    @Override
+    /**
+     * "Метод получения ID Epic'a у Subtask'a"
+     * @return ID Epic'a
+     */
     public int getEpicId() {
         return epicId;
     }
@@ -51,8 +54,8 @@ public class Subtask extends Task{
     }
 
     /**
-     * "Метод преобразования информаци из строки в задачу"
-     * @param value Получнная строка из файла tasks.csv
+     * "Метод преобразования информации из строки в задачу"
+     * @param value Полученная строка из файла tasks.csv
      * @return Результат преобразования строки в задачу
      */
     public static Subtask fromString(String value){

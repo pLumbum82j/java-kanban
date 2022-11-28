@@ -7,7 +7,6 @@ import task.Subtask;
 import task.Task;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ import java.util.List;
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
     private File file;
-    private final String TASK_HEADER = "id,type,name,status,description,epic";
+    private final String TASK_HEADER = "ID,TYPE,NAME,STATUS,Description,Epic";
 
     public FileBackedTasksManager(File file) {
         this.file = file;
@@ -26,43 +25,42 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
      * "Метод восстановления из файла"
      */
     public void loadFromFile() {
-        boolean tasksRead = false;
+        boolean readerTask = false;
         int generatorId = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             while (reader.ready()) {
                 String input = reader.readLine();
-
                 if (input.isEmpty()) {
-                    tasksRead = true;
+                    readerTask = true;
                     continue;
                 }
                 if (input.equals(TASK_HEADER)) {
                     continue;
                 }
-                if (tasksRead) {
+                if (readerTask) {
                     historyFromString(input);
                     break;
                 }
-                generatorId = fillMaps(generatorId, input);
-
+                generatorId = fillingTasks(generatorId, input);
             }
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка при загрузке из файла");
         }
-        this.generatorId = generatorId + 1;
+        this.generatorId++;
 
         for (Subtask subtask : subtasks.values()) {
-            addSubtaskInEpicWithoutID(subtask);
+            addEpicIdForSubtask(subtask);
         }
     }
 
     /**
-     * !!
-     * @param generatorID
-     * @param input
-     * @return
+     * "Метод заполнения менеджера задачами по типу задачи"
+     *
+     * @param generatorID ID Задачи
+     * @param input       Задача
+     * @return ID задачи
      */
-    private int fillMaps(int generatorID, String input) {
+    private int fillingTasks(int generatorID, String input) {
         String[] splitLine = input.split(",");
 
         switch (splitLine[1]) {
@@ -89,7 +87,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     /**
-     * "Метод сохранения задач"
+     * "Метод сохранения задач в файл"
      */
     private void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -113,20 +111,27 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     /**
-     * @param value
-     * @return
+     * "Метод восстановления истории просмотра из файла"
+     *
+     * @param value Строка из файла
      */
-    public static List<Integer> historyFromString(String value) {
-        List<Integer> valueHistoryFromString = new ArrayList<>();
+    public void historyFromString(String value) {
         String[] splitString = value.split(",");
         for (int i = 0; i < splitString.length; i++) {
-            valueHistoryFromString.add(Integer.valueOf(splitString[i]));
+            int index = Integer.valueOf(splitString[i]);
+            if (tasks.containsKey(index)) {
+                defaultHistory.add(tasks.get(index));
+            } else if (epics.containsKey(index)) {
+                defaultHistory.add(epics.get(index));
+            } else if (subtasks.containsKey(index)) {
+                defaultHistory.add(subtasks.get(index));
+            }
         }
-        return valueHistoryFromString;
     }
 
     /**
      * "Метод преобразования истории задач в строку"
+     *
      * @param manager Список задач
      * @return Список ID задач через запятую
      */
@@ -143,12 +148,13 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
     /**
-     * !!! Сравнение
-     * @param manager
+     * "Метод проверки на восстановление задач и истории"
+     *
+     * @param manager Задачи
      */
-    public void compareLoadAndSaveManagers(FileBackedTasksManager manager){
-        if(!tasks.equals(manager.tasks)||!epics.equals(manager.epics)||!subtasks.equals(manager.subtasks)
-                ||!defaultHistory.getHistory().equals(manager.defaultHistory.getHistory())){
+    public void recoveryCheck(FileBackedTasksManager manager) {
+        if (!tasks.equals(manager.tasks) || !epics.equals(manager.epics) || !subtasks.equals(manager.subtasks)
+                || !defaultHistory.getHistory().equals(manager.defaultHistory.getHistory())) {
             System.out.println("false");
         }
     }
@@ -292,6 +298,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         saveManager.getTaskById(2);
         saveManager.getTaskById(3);
         System.out.println(saveManager.getHistory());
-        manager.compareLoadAndSaveManagers(saveManager);
+        manager.recoveryCheck(saveManager);
     }
 }

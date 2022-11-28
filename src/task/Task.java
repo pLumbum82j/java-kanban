@@ -73,14 +73,6 @@ public class Task {
         return Objects.hash(id, name, description, status);
     }
 
-    /**
-     * !! При получении ID эпика у таска будет возвращать нуль
-     *
-     * @return
-     */
-    public int getEpicId() {
-        return 0;
-    }
 
     @Override
     public String toString() {
@@ -88,8 +80,8 @@ public class Task {
     }
 
     /**
-     * "Метод преобразования информаци из строки в задачу"
-     * @param value Получнная строка из файла tasks.csv
+     * "Метод преобразования информации из строки в задачу"
+     * @param value Полученная строка из файла tasks.csv
      * @return Результат преобразования строки в задачу
      */
     public static Task fromString(String value) {

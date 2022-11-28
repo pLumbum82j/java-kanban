@@ -1,7 +1,7 @@
 package manager;
 
 /**
- * "Класс собственного непроверяемого исключения"
+ * "Класс собственного исключения"
  */
 public class ManagerSaveException extends RuntimeException {
     public ManagerSaveException() {
