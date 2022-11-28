@@ -62,11 +62,23 @@ public class Epic extends Task {
      * @return
      */
     @Override
-    public Integer getEpicId() {
-        return null;
+    public int getEpicId() {
+        return 0;
     }
 
     public String toString() {
         return String.format("%d,%s,%s,%s,%s\n", id, TaskType.EPIC, status, name, description);
+    }
+
+    /**
+     * "Метод преобразования информаци из строки в задачу"
+     * @param value Получнная строка из файла tasks.csv
+     * @return Результат преобразования строки в задачу
+     */
+    public static Epic fromString(String value) {
+        String[] input = value.split(",");
+        Epic epic = new Epic(input[3], input[4], Status.valueOf(input[2]));
+        epic.setId(Integer.valueOf(input[0]));
+        return epic;
     }
 }

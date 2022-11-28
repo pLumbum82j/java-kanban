@@ -18,8 +18,7 @@ public class Managers {
      * @return Объекты класса InMemoryTaskManager
      */
     public static TaskManager getDefault() {
-        //return new InMemoryTaskManager();
-        return new FileBackedTasksManager(taskStorageFile);
+        return new InMemoryTaskManager();
     }
 
     /**
@@ -30,4 +29,15 @@ public class Managers {
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
+
+    public static FileBackedTasksManager loadFromFile(){
+        FileBackedTasksManager manager = getDefaultFileBackedTaskManager();
+        manager.loadFromFile();
+        return manager;
+    }
+
+    public  static  FileBackedTasksManager getDefaultFileBackedTaskManager(){
+        return  new FileBackedTasksManager(taskStorageFile);
+    }
+
 }

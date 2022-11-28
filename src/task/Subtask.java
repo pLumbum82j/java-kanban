@@ -22,7 +22,7 @@ public class Subtask extends Task{
 
 
     @Override
-    public Integer getEpicId() {
+    public int getEpicId() {
         return epicId;
     }
 
@@ -49,4 +49,17 @@ public class Subtask extends Task{
     public String toString() {
         return String.format("%d,%s,%s,%s,%s,%s\n", id, TaskType.SUBTASK, status, name, description, getEpicId());
     }
+
+    /**
+     * "Метод преобразования информаци из строки в задачу"
+     * @param value Получнная строка из файла tasks.csv
+     * @return Результат преобразования строки в задачу
+     */
+    public static Subtask fromString(String value){
+        String[] input = value.split(",");
+        Subtask subtask = new Subtask(Integer.parseInt(input[5]), input[3], input[4], Status.valueOf(input[2]));
+        subtask.setId(Integer.valueOf(input[0]));
+        return subtask;
+    }
+
 }

@@ -1,7 +1,6 @@
 package manager;
 
 import manager.history.HistoryManager;
-import manager.history.InMemoryHistoryManager;
 import task.Epic;
 import task.Status;
 import task.Subtask;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private int generatorId = 1;
+    protected int generatorId = 1;
 
     protected final HashMap<Integer, Task> tasks = new HashMap<>();
     protected final HashMap<Integer, Epic> epics = new HashMap<>();
@@ -215,6 +214,22 @@ public class InMemoryTaskManager implements TaskManager {
             return;
         }
         epic.setStatus(status);
+    }
+
+    /**
+     * !!! Добавить subtask в epic без ID
+     * @param subTask
+     */
+    protected void addSubtaskInEpicWithoutID(Subtask subTask){
+        int epicId = subTask.getEpicId();
+        Epic epic = epics.get(epicId);
+
+        if(epic == null){
+            return;
+        }
+
+        epic.addSubTaskId(subTask.getId());
+        updateEpicStatus(epic);
     }
 
 }

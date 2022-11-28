@@ -73,36 +73,26 @@ public class Task {
         return Objects.hash(id, name, description, status);
     }
 
-//    @Override
-//    public String toString() {
-//        return "Task{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", description='" + description + '\'' +
-//                ", status='" + status + '\'' +
-//                '}';
-//    }
-
     /**
      * !! При получении ID эпика у таска будет возвращать нуль
      *
      * @return
      */
-    public Integer getEpicId() {
-        return null;
+    public int getEpicId() {
+        return 0;
     }
-
-//    @Override
-//    public String toString() {
-//        return String.format("%d,%s,%s,%s,%s\n", id, TaskType.TASK, status, name, description);
-//    }
 
     @Override
     public String toString() {
         return String.format("%d,%s,%s,%s,%s\n", id, TaskType.TASK, status, name, description);
     }
 
-    public Task fromString(String value) {
+    /**
+     * "Метод преобразования информаци из строки в задачу"
+     * @param value Получнная строка из файла tasks.csv
+     * @return Результат преобразования строки в задачу
+     */
+    public static Task fromString(String value) {
         String[] input = value.split(",");
         Task task = new Task(input[3], input[4], Status.valueOf(input[2]));
         task.setId(Integer.valueOf(input[0]));
