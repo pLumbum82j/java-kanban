@@ -38,10 +38,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     continue;
                 }
                 if (readerTask) {
-                    historyFromString(input);
+                    CSVTaskFormat.HistoryFromString(input, tasks, epics, subtasks, defaultHistory);
                     break;
                 }
-                generatorId = fillingTasks(generatorId, input);
+                generatorId = CSVTaskFormat.fillingTasks(generatorId, input, tasks, epics, subtasks);
             }
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка при загрузке из файла");
@@ -53,38 +53,37 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
     }
 
-    /**
-     * "Метод заполнения менеджера задачами по типу задачи"
-     *
-     * @param generatorID ID Задачи
-     * @param input       Задача
-     * @return ID задачи
-     */
-    private int fillingTasks(int generatorID, String input) {
-        String[] splitLine = input.split(",");
-
-        switch (splitLine[1]) {
-            case "TASK":
-                Task task = Task.fromString(input);
-                tasks.put(task.getId(), task);
-                if (generatorID < task.getId())
-                    generatorID = task.getId();
-                break;
-            case "EPIC":
-                Epic epic = Epic.fromString(input);
-                epics.put(epic.getId(), epic);
-                if (generatorID < epic.getId())
-                    generatorID = epic.getId();
-                break;
-            case "SUBTASK":
-                Subtask subTask = Subtask.fromString(input);
-                subtasks.put(subTask.getId(), subTask);
-                if (generatorID < subTask.getId())
-                    generatorID = subTask.getId();
-                break;
-        }
-        return generatorID;
-    }
+//    /**
+//     * "Метод заполнения менеджера задачами по типу задачи"
+//     * @param generatorID ID Задачи
+//     * @param input       Задача
+//     * @return ID задачи
+//     */
+//    private int fillingTasks(int generatorID, String input) {
+//        String[] splitLine = input.split(",");
+//
+//        switch (splitLine[1]) {
+//            case "TASK":
+//                Task task = Task.fromString(input);
+//                tasks.put(task.getId(), task);
+//                if (generatorID < task.getId())
+//                    generatorID = task.getId();
+//                break;
+//            case "EPIC":
+//                Epic epic = Epic.fromString(input);
+//                epics.put(epic.getId(), epic);
+//                if (generatorID < epic.getId())
+//                    generatorID = epic.getId();
+//                break;
+//            case "SUBTASK":
+//                Subtask subTask = Subtask.fromString(input);
+//                subtasks.put(subTask.getId(), subTask);
+//                if (generatorID < subTask.getId())
+//                    generatorID = subTask.getId();
+//                break;
+//        }
+//        return generatorID;
+//    }
 
     /**
      * "Метод сохранения задач в файл"
@@ -103,48 +102,48 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 writer.write(subTask.toString());
             }
             writer.newLine();
-            writer.write(historyToString(defaultHistory));
+            writer.write(CSVTaskFormat.historyToString(defaultHistory));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             throw new ManagerSaveException("Ошибка при создании файла");
         }
     }
 
-    /**
-     * "Метод восстановления истории просмотра из файла"
-     *
-     * @param value Строка из файла
-     */
-    public void historyFromString(String value) {
-        String[] splitString = value.split(",");
-        for (int i = 0; i < splitString.length; i++) {
-            int index = Integer.valueOf(splitString[i]);
-            if (tasks.containsKey(index)) {
-                defaultHistory.add(tasks.get(index));
-            } else if (epics.containsKey(index)) {
-                defaultHistory.add(epics.get(index));
-            } else if (subtasks.containsKey(index)) {
-                defaultHistory.add(subtasks.get(index));
-            }
-        }
-    }
+//    /**
+//     * "Метод восстановления истории просмотра из файла"
+//     *
+//     * @param value Строка из файла
+//     */
+//    public void historyFromString(String value) {
+//        String[] splitString = value.split(",");
+//        for (int i = 0; i < splitString.length; i++) {
+//            int index = Integer.valueOf(splitString[i]);
+//            if (tasks.containsKey(index)) {
+//                defaultHistory.add(tasks.get(index));
+//            } else if (epics.containsKey(index)) {
+//                defaultHistory.add(epics.get(index));
+//            } else if (subtasks.containsKey(index)) {
+//                defaultHistory.add(subtasks.get(index));
+//            }
+//        }
+//    }
 
-    /**
-     * "Метод преобразования истории задач в строку"
-     *
-     * @param manager Список задач
-     * @return Список ID задач через запятую
-     */
-    private static String historyToString(HistoryManager manager) {
-        String valueHistoryToString = "";
-        for (int i = 0; i < manager.getHistory().size(); i++) {
-            valueHistoryToString += manager.getHistory().get(i).getId() + " ";
-        }
-        // Не хотел через if, хотел показать, что умею и знаю методы trim и replace
-        valueHistoryToString = valueHistoryToString.trim();
-        valueHistoryToString = valueHistoryToString.replace(' ', ',');
-        return valueHistoryToString;
-    }
+//    /**
+//     * "Метод преобразования истории задач в строку"
+//     *
+//     * @param manager Список задач
+//     * @return Список ID задач через запятую
+//     */
+//    private static String historyToString(HistoryManager manager) {
+//        String valueHistoryToString = "";
+//        for (int i = 0; i < manager.getHistory().size(); i++) {
+//            valueHistoryToString += manager.getHistory().get(i).getId() + " ";
+//        }
+//        // Не хотел через if, хотел показать, что умею и знаю методы trim и replace
+//        valueHistoryToString = valueHistoryToString.trim();
+//        valueHistoryToString = valueHistoryToString.replace(' ', ',');
+//        return valueHistoryToString;
+//    }
 
 
     /**
@@ -262,7 +261,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     public static void main(String[] args) {
-        FileBackedTasksManager manager = Managers.loadFromFile();
         FileBackedTasksManager saveManager = Managers.getDefaultFileBackedTaskManager();
         System.out.println("Тесты для проверки");
 
@@ -298,6 +296,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         saveManager.getTaskById(2);
         saveManager.getTaskById(3);
         System.out.println(saveManager.getHistory());
+
+        FileBackedTasksManager manager = Managers.loadFromFile();
         manager.recoveryCheck(saveManager);
+
     }
 }
