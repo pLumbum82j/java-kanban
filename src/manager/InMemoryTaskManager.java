@@ -6,9 +6,12 @@ import task.Status;
 import task.Subtask;
 import task.Task;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 
 public class InMemoryTaskManager implements TaskManager {
@@ -126,6 +129,7 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks.put(subtask.getId(), subtask);
         epic.addSubTaskId(subtask.getId());
         updateEpicStatus(epic);
+        updateTimeEpic(epic);
         generatorId++;
     }
 
@@ -218,18 +222,44 @@ public class InMemoryTaskManager implements TaskManager {
 
     /**
      * "Метод добавления ID Epic'a в subtask"
+     *
      * @param subTask Subtask
      */
-    protected void addEpicIdForSubtask(Subtask subTask){
+    protected void addEpicIdForSubtask(Subtask subTask) {
         int epicId = subTask.getEpicId();
         Epic epic = epics.get(epicId);
 
-        if(epic == null){
+        if (epic == null) {
             return;
         }
 
         epic.addSubTaskId(subTask.getId());
         updateEpicStatus(epic);
+    }
+
+    public void updateTimeEpic(Epic epic) {
+        LocalDateTime mainStartTime=null;
+        LocalDateTime endTime = null;
+        long duration = 0;
+        for (Subtask subtask : getSubtaskListEpics(epic.getId())) {
+            endTime = subtask.getEndTime();
+            Optional<LocalDateTime> startTime = subtask.getStartTime();
+            if (startTime.isPresent()) {
+                mainStartTime = mainStartTime == null ? startTime.get() : mainStartTime;
+                if (startTime.get().isBefore(mainStartTime)){
+                    mainStartTime = startTime.get();
+                }
+                if (subtask.getEndTime().isAfter(endTime)) {
+                    endTime = subtask.getEndTime();
+                }
+                duration += subtask.getDuration();
+            }
+        }
+        if(mainStartTime!=null) {
+            epic.setStartTime(mainStartTime);
+        }
+        epic.setEndTime(endTime);
+        epic.setDuration(duration);
     }
 
 }

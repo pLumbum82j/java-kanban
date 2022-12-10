@@ -1,15 +1,15 @@
-ID,TYPE,NAME,STATUS,Description,Epic
-1,TASK,NEW,MyTask 1-1,Description
-2,TASK,IN_PROGRESS,MyTask 2-2,Description
-3,TASK,DONE,MyTask 3-3,Description
-4,TASK,NEW,MyTask 4-4,Description
-5,EPIC,IN_PROGRESS,MyEpic 1-5,Description
-6,EPIC,NEW,MyEpic 2-6,Description
-7,EPIC,NEW,MyEpic 3-7,Description
-8,EPIC,NEW,MyEpic 4-8,Description
-9,SUBTASK,IN_PROGRESS,MySubtask 1-9,Description,5
-10,SUBTASK,DONE,MySubtask 2-10,Description,5
-11,SUBTASK,DONE,MySubtask 3-11,Description,5
-12,SUBTASK,NEW,MySubtask 4-12,Description,6
+ID, TYPE, STATUS, NAME, DESCRIPTION, START_TIME, DURATION, EPIC_ID
+1,TASK,NEW,MyTask 1-1,Description,2022-12-11T00:46:26.929110600,10
+2,TASK,IN_PROGRESS,MyTask 2-2,Description,2022-12-11T00:46:26.929110600,20
+3,TASK,NEW,MyTask 3-3,Description,null,0
+4,TASK,NEW,MyTask 4-4,Description,null,0
+5,EPIC,IN_PROGRESS,MyEpic 1-5,Description,2022-12-11T00:46:26.929110600,10
+6,EPIC,NEW,MyEpic 2-6,Description,null,0
+7,EPIC,NEW,MyEpic 3-7,Description,null,0
+8,EPIC,NEW,MyEpic 4-8,Description,null,0
+9,SUBTASK,IN_PROGRESS,MySubtask 1-9,Description,2022-12-11T00:46:26.929110600,10,5
+10,SUBTASK,NEW,MySubtask 2-10,Description,null,0,5
+11,SUBTASK,NEW,MySubtask 3-11,Description,null,0,5
+12,SUBTASK,NEW,MySubtask 4-12,Description,null,0,6
 
 1,2,3

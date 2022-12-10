@@ -1,11 +1,13 @@
 package task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends Task {
 
-    private ArrayList<Integer> subtaskListId;
+    protected ArrayList<Integer> subtaskListId;
+    protected LocalDateTime endTime;
 
     public Epic(String name, String description, Status status) {
         super(name, description, status);
@@ -21,6 +23,7 @@ public class Epic extends Task {
         super(name, description);
         subtaskListId = new ArrayList<>();
     }
+
 
     public void addSubTaskId(int subtaskId) {
         subtaskListId.add(subtaskId);
@@ -42,6 +45,10 @@ public class Epic extends Task {
         this.subtaskListId = subtaskListId;
     }
 
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,11 +65,12 @@ public class Epic extends Task {
 
 
     public String toString() {
-        return String.format("%d,%s,%s,%s,%s\n", id, TaskType.EPIC, status, name, description);
+        return String.format("%d,%s,%s,%s,%s,%s,%s\n", id, TaskType.EPIC, status, name, description, startTime, duration);
     }
 
     /**
      * "Метод преобразования информации из строки в задачу"
+     *
      * @param value Полученная строка из файла tasks.csv
      * @return Результат преобразования строки в задачу
      */
