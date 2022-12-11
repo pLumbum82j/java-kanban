@@ -1,7 +1,6 @@
 package task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -23,7 +22,6 @@ public class Task {
     public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
-        this.status = status;
         this.status = Status.NEW;
     }
 
@@ -41,6 +39,7 @@ public class Task {
         this.description = description;
         this.status = status;
     }
+
     public Task(int id, String name, String description, Status status, LocalDateTime startTime, long duration) {
         this.id = id;
         this.name = name;
@@ -99,7 +98,7 @@ public class Task {
     }
 
     public LocalDateTime getEndTime() {
-        if(startTime == null){
+        if (startTime == null) {
             return null;
         }
         return startTime.plusMinutes(duration);
@@ -127,6 +126,7 @@ public class Task {
 
     /**
      * "Метод преобразования информации из строки в задачу"
+     *
      * @param value Полученная строка из файла tasks.csv
      * @return Результат преобразования строки в задачу
      */
@@ -134,7 +134,7 @@ public class Task {
 
 
         String[] input = value.split(",");
-        if (input[5].equals("null")){
+        if (input[5].equals("null")) {
             Task task = new Task(input[3], input[4], Status.valueOf(input[2]));
             task.setId(Integer.valueOf(input[0]));
             return task;

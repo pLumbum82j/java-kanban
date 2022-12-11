@@ -72,7 +72,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             writer.newLine();
             writer.write(CSVTaskFormat.historyToString(defaultHistory));
         } catch (IOException e) {
-             throw new ManagerSaveException("Ошибка при создании файла");
+            throw new ManagerSaveException("Ошибка при создании файла");
         }
     }
 
@@ -194,15 +194,15 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         FileBackedTasksManager saveManager = Managers.getDefaultFileBackedTaskManager();
         System.out.println("Тесты для проверки");
 
-        Task task1 = new Task(1,"MyTask 1-1", "Description", Status.NEW, LocalDateTime.of(2014, 9, 19, 14, 1), 10);
-        Task task2 = new Task("MyTask 2-2", "Description", Status.IN_PROGRESS,LocalDateTime.of(2014, 9, 19, 14, 5), 20);
+        Task task1 = new Task(1, "MyTask 1-1", "Description", Status.NEW, LocalDateTime.of(2014, 9, 19, 14, 1), 10);
+        Task task2 = new Task("MyTask 2-2", "Description", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 5), 20);
         Task task3 = new Task("MyTask 3-3", "Description");
         Task task4 = new Task("MyTask 4-4", "Description");
         Epic epic1 = new Epic("MyEpic 1-5", "Description", Status.NEW);
         Epic epic2 = new Epic("MyEpic 2-6", "Description", Status.IN_PROGRESS);
         Epic epic3 = new Epic("MyEpic 3-7", "Description", Status.DONE);
         Epic epic4 = new Epic("MyEpic 4-8", "Description");
-        Subtask subtask1 = new Subtask(5, "MySubtask 1-9", "Description", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 37), 10);
+        Subtask subtask1 = new Subtask(5, "MySubtask 1-9", "Description", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 12), 10);
         Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", Status.DONE, LocalDateTime.of(2014, 9, 19, 14, 12), 22);
         Subtask subtask3 = new Subtask(5, "MySubtask 3-11", "Description", Status.DONE);
         Subtask subtask4 = new Subtask(6, "MySubtask 4-12", "Description");
@@ -225,7 +225,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         saveManager.getTaskById(1);
         saveManager.getTaskById(2);
         saveManager.getTaskById(3);
-        //System.out.println(saveManager.getHistory());
+        System.out.println(saveManager.getHistory());
         System.out.println(saveManager.prioritizedTasks);
 
 

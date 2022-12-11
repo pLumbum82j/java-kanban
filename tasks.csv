@@ -7,9 +7,9 @@ ID,TYPE,STATUS,NAME,DESCRIPTION,START_TIME,DURATION,EPIC_ID
 6,EPIC,NEW,MyEpic 2-6,Description,null,0
 7,EPIC,NEW,MyEpic 3-7,Description,null,0
 8,EPIC,NEW,MyEpic 4-8,Description,null,0
-9,SUBTASK,IN_PROGRESS,MySubtask 1-9,Description,2014-09-19T14:37,10,5
+9,SUBTASK,IN_PROGRESS,MySubtask 1-9,Description,2014-09-19T14:12,10,5
 10,SUBTASK,DONE,MySubtask 2-10,Description,2014-09-19T14:12,22,5
 11,SUBTASK,NEW,MySubtask 3-11,Description,null,0,5
 12,SUBTASK,NEW,MySubtask 4-12,Description,null,0,6
 
-1,2
+1,2,3

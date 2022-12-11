@@ -162,4 +162,6 @@ public interface TaskManager {
      * @param epic Epic id
      */
     void updateEpicStatus(Epic epic);
+
+    List<Task> getAllTasks();
 }
