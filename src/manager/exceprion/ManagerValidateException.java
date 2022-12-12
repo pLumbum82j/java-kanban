@@ -1,4 +1,4 @@
-package manager;
+package manager.exceprion;
 
 public class ManagerValidateException extends RuntimeException {
     public ManagerValidateException(String message) {

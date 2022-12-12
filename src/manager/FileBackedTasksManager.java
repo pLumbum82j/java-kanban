@@ -1,5 +1,6 @@
 package manager;
 
+import manager.exceprion.ManagerSaveException;
 import task.Epic;
 import task.Status;
 import task.Subtask;
@@ -89,21 +90,24 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void addSubTask(Subtask subtask) {
+    public Subtask addSubTask(Subtask subtask) {
         super.addSubTask(subtask);
         save();
+        return subtask;
     }
 
     @Override
-    public void addTask(Task task) {
+    public Task addTask(Task task) {
         super.addTask(task);
         save();
+        return task;
     }
 
     @Override
-    public void addEpicTask(Epic epic) {
+    public Epic addEpicTask(Epic epic) {
         super.addEpicTask(epic);
         save();
+        return epic;
     }
 
     @Override
@@ -195,7 +199,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         System.out.println("Тесты для проверки");
 
         Task task1 = new Task(1, "MyTask 1-1", "Description", Status.NEW, LocalDateTime.of(2014, 9, 19, 14, 1), 10);
-        Task task2 = new Task("MyTask 2-2", "Description", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 5), 20);
+        Task task2 = new Task("MyTask 2-2", "Description", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 45), 20);
         Task task3 = new Task("MyTask 3-3", "Description");
         Task task4 = new Task("MyTask 4-4", "Description");
         Epic epic1 = new Epic("MyEpic 1-5", "Description", Status.NEW);
@@ -226,6 +230,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         saveManager.getTaskById(2);
         saveManager.getTaskById(3);
         System.out.println(saveManager.getHistory());
+        System.out.println(saveManager.prioritizedTasks);
+        saveManager.delTask(3);
         System.out.println(saveManager.prioritizedTasks);
 
 

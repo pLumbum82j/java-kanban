@@ -24,21 +24,21 @@ public interface TaskManager {
      *
      * @return список Task
      */
-    ArrayList<Task> getTask();
+    List<Task> getTask();
 
     /**
      * "Метод прлучения списка EpicTask"
      *
      * @return список EpicTask
      */
-    ArrayList<Task> getEpicTask();
+    List<Task> getEpicTask();
 
     /**
      * "Метод получения списка SubTask"
      *
      * @return список SubTask
      */
-    ArrayList<Task> getSubTask();
+    List<Task> getSubTask();
 
     /**
      * "Метод удаления всех списков задач"
@@ -88,22 +88,25 @@ public interface TaskManager {
      * "Метод создания Task"
      *
      * @param task объект Task
+     * @return Созданный Task
      */
-    void addTask(Task task);
+    Task addTask(Task task);
 
     /**
      * "Метод создания EpicTask"
      *
      * @param epic объект Epic
+     * @return Созданный Epic
      */
-    void addEpicTask(Epic epic);
+    Epic addEpicTask(Epic epic);
 
     /**
      * "Метод создания SubTask"
      *
      * @param subtask объект SubTask
+     * @return Созданный SubTask
      */
-    void addSubTask(Subtask subtask);
+    Subtask addSubTask(Subtask subtask);
 
     /**
      * "Метод изменения определенного Task по ID"
@@ -163,5 +166,17 @@ public interface TaskManager {
      */
     void updateEpicStatus(Epic epic);
 
-    List<Task> getAllTasks();
+    /**
+     * "Метод определения статуса Task при изменении статуса"
+     *
+     * @param task Task id
+     */
+    void updateTaskStatus(Task task);
+
+    /**
+     * "Метод определения статуса Task при изменении статуса"
+     *
+     * @param subtask SubTask id
+     */
+    void updateSubtaskStatus(Subtask subtask);
 }
