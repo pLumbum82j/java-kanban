@@ -177,8 +177,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void changeTask(Task task) {
-        super.changeTask(task);
+    public void changeTask(Task newTask) {
+        super.changeTask(newTask);
         save();
     }
 
@@ -207,7 +207,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         Epic epic3 = new Epic("MyEpic 3-7", "Description", Status.DONE);
         Epic epic4 = new Epic("MyEpic 4-8", "Description");
         Subtask subtask1 = new Subtask(5, "MySubtask 1-9", "Description", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 12), 10);
-        Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", Status.DONE, LocalDateTime.of(2014, 9, 19, 14, 12), 22);
+        Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", Status.DONE, LocalDateTime.of(2014, 9, 19, 15, 52), 22);
         Subtask subtask3 = new Subtask(5, "MySubtask 3-11", "Description", Status.DONE);
         Subtask subtask4 = new Subtask(6, "MySubtask 4-12", "Description");
 
@@ -231,7 +231,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         saveManager.getTaskById(3);
         System.out.println(saveManager.getHistory());
         System.out.println(saveManager.prioritizedTasks);
-        saveManager.delTask(3);
+        Task taskById = new Task(3, "MyTask 666", "6655", Status.IN_PROGRESS, LocalDateTime.of(2022, 9, 19, 14, 1), 10);
+
+        //new Task("MyTask 222", "taskById.setStatus(Status.IN_PROGRESS)2222", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 45), 20)
+        saveManager.changeTask(taskById);
         System.out.println(saveManager.prioritizedTasks);
 
 

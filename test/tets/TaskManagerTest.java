@@ -68,6 +68,22 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
+    public void s11houldAddSubTask() {
+        Epic epic = addEpicTask();
+        manager.addEpicTask(epic);
+        Subtask subtask = addSubTask(epic);
+        Subtask subtask2 = new Subtask(1, "MySubtask 1-9", "Description", Status.NEW, LocalDateTime.of(2012, 9, 19, 14, 37), 10);
+        manager.addSubTask(subtask);
+        manager.addSubTask(subtask2);
+        List<Task> subtasks = manager.getSubTask();
+        assertNotNull(subtask.getStatus());
+        assertEquals(epic.getId(), subtask.getEpicId());
+        assertEquals(Status.NEW, subtask.getStatus());
+        assertEquals(List.of(subtask), subtasks);
+        assertEquals(List.of(subtask.getId()), epic.getSubtaskListId());
+    }
+
+    @Test
     void shouldReturnNullWhenCreateTaskNull() {
         Task task = manager.addTask(null);
         assertNull(task);

@@ -181,10 +181,17 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void changeTask(Task task) {
-        if (tasks.get(task.getId()) != null) {
-            tasks.put(task.getId(), task);
+    public void changeTask(Task newTask) {
+        Task oldTask = tasks.get(newTask.getId());
+        if (oldTask != null) {
+            prioritizedTasks.remove(oldTask);
+            tasks.put(newTask.getId(), newTask);
         }
+        if(!newTask.getStatus().equals(oldTask.getStatus())){
+
+            updateTaskStatus(newTask);
+        }
+
     }
 
     @Override
@@ -207,25 +214,26 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void delTask(int id) {
-        tasks.remove(id);
         defaultHistory.remove(id);
-//        prioritizedTasks.remove(tasks.get(id));
+        prioritizedTasks.remove(tasks.get(id));
+        tasks.remove(id);
     }
 
     @Override
     public void delEpic(int id) {
-        Epic deletedEpic = epics.remove(id);
-        for (Integer subtaskId : deletedEpic.getSubtaskListId()) {
+        prioritizedTasks.remove(epics.get(id));
+        ArrayList<Integer> subtaskList = epics.remove(id).getSubtaskListId();
+        for (Integer subtaskId : subtaskList) {
+            prioritizedTasks.remove(subtasks.get(subtaskId));
             subtasks.remove(subtaskId);
             defaultHistory.remove(subtaskId);
-//            prioritizedTasks.remove(subtaskId);
         }
-//        prioritizedTasks.remove(epics.remove(id));
         defaultHistory.remove(id);
     }
 
     @Override
     public void delSubTask(int id) {
+        prioritizedTasks.remove(subtasks.get(id));
         Subtask deletedSubtask = subtasks.remove(id);
         if (deletedSubtask != null) {
             int deleteEpicId = deletedSubtask.getEpicId();
@@ -381,7 +389,7 @@ public class InMemoryTaskManager implements TaskManager {
                             && task.getEndTime().isBefore(taskSave.getEndTime())) {
                         System.out.println("Пересечение: " + task.getName());
                         return true;
-                    } else if (task.getStartTime().get().equals(taskSave.getStartTime())) {
+                    } else if (task.getStartTime().get().isEqual(taskSave.getStartTime().get())) {
                         System.out.println("Пересечение: " + task.getName());
                         return true;
                     }
