@@ -57,7 +57,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     /**
      * "Метод сохранения задач в файл"
      */
-    private void save() {
+    public void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(TASK_HEADER);
             writer.newLine();
@@ -183,63 +183,58 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void changeEpic(Epic epic) {
-        super.changeEpic(epic);
+    public void changeEpic(Epic newEpic) {
+        super.changeEpic(newEpic);
         save();
     }
 
     @Override
-    public void changeSubTask(Subtask subtask) {
-        super.changeSubTask(subtask);
+    public void changeSubTask(Subtask newSubtask) {
+        super.changeSubTask(newSubtask);
         save();
     }
 
     public static void main(String[] args) {
-        FileBackedTasksManager saveManager = Managers.getDefaultFileBackedTaskManager();
-        System.out.println("Тесты для проверки");
-
-        Task task1 = new Task(1, "MyTask 1-1", "Description", Status.NEW, LocalDateTime.of(2014, 9, 19, 14, 1), 10);
-        Task task2 = new Task("MyTask 2-2", "Description", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 45), 20);
-        Task task3 = new Task("MyTask 3-3", "Description");
-        Task task4 = new Task("MyTask 4-4", "Description");
-        Epic epic1 = new Epic("MyEpic 1-5", "Description", Status.NEW);
-        Epic epic2 = new Epic("MyEpic 2-6", "Description", Status.IN_PROGRESS);
-        Epic epic3 = new Epic("MyEpic 3-7", "Description", Status.DONE);
-        Epic epic4 = new Epic("MyEpic 4-8", "Description");
-        Subtask subtask1 = new Subtask(5, "MySubtask 1-9", "Description", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 12), 10);
-        Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", Status.DONE, LocalDateTime.of(2014, 9, 19, 15, 52), 22);
-        Subtask subtask3 = new Subtask(5, "MySubtask 3-11", "Description", Status.DONE);
-        Subtask subtask4 = new Subtask(6, "MySubtask 4-12", "Description");
-
-
-        saveManager.addTask(task1);
-        saveManager.addTask(task2);
-        saveManager.addTask(task3);
-        saveManager.addTask(task4);
-        saveManager.addEpicTask(epic1);
-        saveManager.addEpicTask(epic2);
-        saveManager.addEpicTask(epic3);
-        saveManager.addEpicTask(epic4);
-        saveManager.addSubTask(subtask1);
-        saveManager.addSubTask(subtask2);
-        saveManager.addSubTask(subtask3);
-        saveManager.addSubTask(subtask4);
-        System.out.println("Все Task/Epic/Subtask загружены");
-
-        saveManager.getTaskById(1);
-        saveManager.getTaskById(2);
-        saveManager.getTaskById(3);
-        System.out.println(saveManager.getHistory());
-        System.out.println(saveManager.prioritizedTasks);
-        Task taskById = new Task(3, "MyTask 666", "6655", Status.IN_PROGRESS, LocalDateTime.of(2022, 9, 19, 14, 1), 10);
-
-        //new Task("MyTask 222", "taskById.setStatus(Status.IN_PROGRESS)2222", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 45), 20)
-        saveManager.changeTask(taskById);
-        System.out.println(saveManager.prioritizedTasks);
-
-
-        FileBackedTasksManager manager = Managers.loadFromFile();
-        manager.recoveryCheck(saveManager);
+//        FileBackedTasksManager saveManager = Managers.getDefaultFileBackedTaskManager();
+//        System.out.println("Тесты для проверки");
+//
+//        Task task1 = new Task(1, "MyTask 1-1", "Description", Status.NEW, LocalDateTime.of(2014, 9, 19, 14, 1), 10);
+//        Task task2 = new Task("MyTask 2-2", "Description", Status.IN_PROGRESS, LocalDateTime.of(2014, 9, 19, 14, 45), 20);
+//        Task task3 = new Task("MyTask 3-3", "Description");
+//        Task task4 = new Task("MyTask 4-4", "Description");
+//        Epic epic1 = new Epic("MyEpic 1-5", "Description", Status.NEW);
+//        Epic epic2 = new Epic("MyEpic 2-6", "Description", Status.IN_PROGRESS);
+//        Epic epic3 = new Epic("MyEpic 3-7", "Description", Status.DONE);
+//        Epic epic4 = new Epic("MyEpic 4-8", "Description");
+//        Subtask subtask1 = new Subtask(5, "MySubtask 1-9", "Description");
+//        Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", Status.IN_PROGRESS,LocalDateTime.now(),10);
+//        Subtask subtask3 = new Subtask(5, "MySubtask 3-11", "Description", Status.DONE);
+//        Subtask subtask4 = new Subtask(6, "MySubtask 4-12", "Description");
+//
+//
+//        saveManager.addTask(task1);
+//        saveManager.addTask(task2);
+//        saveManager.addTask(task3);
+//        saveManager.addTask(task4);
+//        saveManager.addEpicTask(epic1);
+//        saveManager.addEpicTask(epic2);
+//        saveManager.addEpicTask(epic3);
+//        saveManager.addEpicTask(epic4);
+//        saveManager.addSubTask(subtask1);
+//        saveManager.addSubTask(subtask2);
+//        saveManager.addSubTask(subtask3);
+//        saveManager.addSubTask(subtask4);
+//        System.out.println("Все Task/Epic/Subtask загружены");
+//
+//        saveManager.getTaskById(1);
+//        saveManager.getTaskById(2);
+//        saveManager.getTaskById(3);
+//        System.out.println(saveManager.getHistory());
+//        System.out.println(saveManager.prioritizedTasks);
+//
+//
+//        FileBackedTasksManager manager = Managers.loadFromFile();
+//        manager.recoveryCheck(saveManager);
 
     }
 }
