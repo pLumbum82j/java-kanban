@@ -11,7 +11,7 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
-        public Subtask(int epicId, String name, String description, Status status) {
+    public Subtask(int epicId, String name, String description, Status status) {
         super(name, description, status);
         this.epicId = epicId;
     }
@@ -69,7 +69,7 @@ public class Subtask extends Task {
      */
     public static Subtask fromString(String value) {
         String[] input = value.split(",");
-        if (input[5].equals("null")){
+        if (input[5].equals("null")) {
             Subtask subtask = new Subtask(Integer.parseInt(input[7]), input[3], input[4], Status.valueOf(input[2]));
             subtask.setId(Integer.valueOf(input[0]));
             return subtask;

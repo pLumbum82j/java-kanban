@@ -24,6 +24,7 @@ public interface HistoryManager {
 
     /**
      * "Удаления задачи из истории просмотра"
+     *
      * @param id Задачи
      */
     void remove(int id);

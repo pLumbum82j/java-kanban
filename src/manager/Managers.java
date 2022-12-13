@@ -14,6 +14,7 @@ public class Managers {
 
     /**
      * "Метод трекера по умолчанию"
+     *
      * @return Объекты класса InMemoryTaskManager
      */
     public static TaskManager getDefault() {
@@ -22,6 +23,7 @@ public class Managers {
 
     /**
      * "Метод истории просмотров"
+     *
      * @return Объекты класса InMemoryHistoryManager
      */
     public static HistoryManager getDefaultHistory() {
@@ -31,9 +33,10 @@ public class Managers {
 
     /**
      * "Метод трекера по умолчанию с записью в файл хранения задач из памяти"
+     *
      * @return Задачи
      */
-    public static FileBackedTasksManager loadFromFile(){
+    public static FileBackedTasksManager loadFromFile() {
         FileBackedTasksManager manager = getDefaultFileBackedTaskManager();
         manager.loadFromFile();
         return manager;
@@ -41,10 +44,11 @@ public class Managers {
 
     /**
      * "Статический метод создания файла хранения задач"
+     *
      * @return
      */
-    public  static  FileBackedTasksManager getDefaultFileBackedTaskManager(){
-        return  new FileBackedTasksManager(taskStorageFile);
+    public static FileBackedTasksManager getDefaultFileBackedTaskManager() {
+        return new FileBackedTasksManager(taskStorageFile);
     }
 
 }
