@@ -1,4 +1,4 @@
-package tets;
+package tests;
 
 import manager.InMemoryTaskManager;
 import org.junit.jupiter.api.BeforeEach;

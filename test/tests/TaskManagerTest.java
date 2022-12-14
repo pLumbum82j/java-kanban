@@ -1,4 +1,4 @@
-package tets;
+package tests;
 
 import manager.TaskManager;
 import org.junit.jupiter.api.Test;
@@ -32,8 +32,10 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldAddTask() {
         Task task = addTask();
+
         manager.addTask(task);
         List<Task> tasks = manager.getTask();
+
         assertNotNull(task.getStatus());
         assertEquals(Status.NEW, task.getStatus());
         assertEquals(List.of(task), tasks);

@@ -1,4 +1,4 @@
-package tets;
+package tests;
 
 import manager.history.HistoryManager;
 import manager.history.InMemoryHistoryManager;

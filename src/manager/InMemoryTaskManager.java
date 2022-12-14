@@ -280,6 +280,8 @@ public class InMemoryTaskManager implements TaskManager {
                 epic.setStatus(Status.IN_PROGRESS);
                 return;
             }
+
+
             epic.setStatus(status);
         } else {
             System.out.println("Task не найден");
