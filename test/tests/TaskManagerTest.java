@@ -21,7 +21,6 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     protected Epic addEpicTask() {
-
         return new Epic("MyEpic 1-5", "Description", Status.NEW);
     }
 
@@ -44,8 +43,10 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldAddEpicTask() {
         Epic epic = addEpicTask();
+
         manager.addEpicTask(epic);
         List<Task> epics = manager.getEpicTask();
+
         assertNotNull(epic.getStatus());
         assertEquals(Status.NEW, epic.getStatus());
         assertEquals(Collections.EMPTY_LIST, epic.getSubtaskListId());
@@ -55,10 +56,12 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldAddSubTask() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         List<Task> subtasks = manager.getSubTask();
+
         assertNotNull(subtask.getStatus());
         assertEquals(epic.getId(), subtask.getEpicId());
         assertEquals(Status.NEW, subtask.getStatus());
@@ -69,11 +72,13 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldStatusEpicAllNew() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
         Subtask subtask2 = new Subtask(1, "MySubtask 123", "Description", Status.NEW, LocalDateTime.of(2012, 9, 19, 17, 37), 10);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         manager.addSubTask(subtask2);
+
         assertNotNull(subtask.getStatus());
         assertNotNull(subtask2.getStatus());
         assertEquals(epic.getId(), subtask.getEpicId());
@@ -86,11 +91,13 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldStatusEpicNewAndDone() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
         Subtask subtask2 = new Subtask(1, "MySubtask 123", "Description", Status.DONE, LocalDateTime.of(2012, 9, 19, 17, 37), 10);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         manager.addSubTask(subtask2);
+
         assertNotNull(subtask.getStatus());
         assertNotNull(subtask2.getStatus());
         assertEquals(epic.getId(), subtask.getEpicId());
@@ -103,11 +110,13 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldStatusEpicAllDone() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = new Subtask(1, "MySubtask 123", "Description", Status.DONE, LocalDateTime.of(2012, 9, 19, 10, 37), 10);
         Subtask subtask2 = new Subtask(1, "MySubtask 321", "Description", Status.DONE, LocalDateTime.of(2012, 9, 19, 17, 37), 10);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         manager.addSubTask(subtask2);
+
         assertNotNull(subtask.getStatus());
         assertNotNull(subtask2.getStatus());
         assertEquals(epic.getId(), subtask.getEpicId());
@@ -120,11 +129,13 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldStatusEpicAllInProgress() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = new Subtask(1, "MySubtask 123", "Description", Status.IN_PROGRESS, LocalDateTime.of(2012, 9, 19, 10, 37), 10);
         Subtask subtask2 = new Subtask(1, "MySubtask 321", "Description", Status.IN_PROGRESS, LocalDateTime.of(2012, 9, 19, 17, 37), 10);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         manager.addSubTask(subtask2);
+
         assertNotNull(subtask.getStatus());
         assertNotNull(subtask2.getStatus());
         assertEquals(epic.getId(), subtask.getEpicId());
@@ -137,80 +148,97 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void shouldReturnNullWhenAddTaskNull() {
         Task task = manager.addTask(null);
+
         assertNull(task);
     }
 
     @Test
     void shouldReturnNullWhenAddEpicNull() {
         Epic epic = manager.addEpicTask(null);
+
         assertNull(epic);
     }
 
     @Test
     void shouldReturnNullWhenAddSubtaskNull() {
         Subtask subtask = manager.addSubTask(null);
+
         assertNull(subtask);
     }
 
     @Test
     public void shouldUpdateTaskStatusToNew() {
         Task task = addTask();
+
         manager.addTask(task);
         task.setStatus(Status.NEW);
         manager.updateTaskStatus(task);
+
         assertEquals(Status.NEW, manager.getTaskById(task.getId()).getStatus());
     }
 
     @Test
     public void shouldUpdateTaskStatusToInProgress() {
         Task task = addTask();
+
         manager.addTask(task);
         task.setStatus(Status.IN_PROGRESS);
         manager.updateTaskStatus(task);
+
         assertEquals(Status.IN_PROGRESS, manager.getTaskById(task.getId()).getStatus());
     }
 
     @Test
     public void shouldUpdateTaskStatusToDone() {
         Task task = addTask();
+
         manager.addTask(task);
         task.setStatus(Status.DONE);
         manager.updateTaskStatus(task);
+
         assertEquals(Status.DONE, manager.getTaskById(task.getId()).getStatus());
     }
 
     @Test
     public void shouldUpdateEpicStatusToNew() {
         Epic epic = addEpicTask();
+
         manager.addEpicTask(epic);
         epic.setStatus(Status.NEW);
+
         assertEquals(Status.NEW, manager.getEpicById(epic.getId()).getStatus());
     }
 
     @Test
     public void shouldUpdateEpicStatusToInProgress() {
         Epic epic = addEpicTask();
+
         manager.addEpicTask(epic);
         epic.setStatus(Status.IN_PROGRESS);
+
         assertEquals(Status.IN_PROGRESS, manager.getEpicById(epic.getId()).getStatus());
     }
 
     @Test
     public void shouldUpdateEpicStatusToDone() {
         Epic epic = addEpicTask();
+
         manager.addEpicTask(epic);
         epic.setStatus(Status.DONE);
+
         assertEquals(Status.DONE, manager.getEpicById(epic.getId()).getStatus());
     }
 
     @Test
     public void shouldUpdateSubtaskStatusToNew() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         subtask.setStatus(Status.NEW);
         manager.updateSubtaskStatus(subtask);
+
         assertEquals(Status.NEW, manager.getSubTaskById(subtask.getId()).getStatus());
         assertEquals(Status.NEW, manager.getEpicById(epic.getId()).getStatus());
     }
@@ -218,11 +246,13 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldUpdateSubtaskStatusToInProgress() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         subtask.setStatus(Status.IN_PROGRESS);
         manager.updateSubtaskStatus(subtask);
+
         assertEquals(Status.IN_PROGRESS, manager.getSubTaskById(subtask.getId()).getStatus());
         assertEquals(Status.IN_PROGRESS, manager.getEpicById(epic.getId()).getStatus());
     }
@@ -230,11 +260,13 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldUpdateSubtaskStatusToDone() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         subtask.setStatus(Status.DONE);
         manager.updateSubtaskStatus(subtask);
+
         assertEquals(Status.DONE, manager.getSubTaskById(subtask.getId()).getStatus());
         assertEquals(Status.DONE, manager.getEpicById(epic.getId()).getStatus());
     }
@@ -242,52 +274,64 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldNotUpdateTaskIfNull() {
         Task task = addTask();
+
         manager.addTask(task);
         manager.updateTaskStatus(null);
+
         assertEquals(task, manager.getTaskById(task.getId()));
     }
 
     @Test
     public void shouldNotUpdateEpicIfNull() {
         Epic epic = addEpicTask();
+
         manager.addEpicTask(epic);
         manager.updateEpicStatus(null);
+
         assertEquals(epic, manager.getEpicById(epic.getId()));
     }
 
     @Test
     public void shouldNotUpdateSubtaskIfNull() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         manager.updateSubtaskStatus(null);
+
         assertEquals(subtask, manager.getSubTaskById(subtask.getId()));
     }
 
     @Test
     public void shouldDeleteAllTasks() {
         Task task = addTask();
+
         manager.addTask(task);
         manager.clearTask();
+
         assertEquals(Collections.EMPTY_LIST, manager.getTask());
     }
 
     @Test
     public void shouldDeleteAllEpics() {
         Epic epic = addEpicTask();
+
         manager.addEpicTask(epic);
         manager.clearEpic();
+
         assertEquals(Collections.EMPTY_LIST, manager.getEpicTask());
     }
 
     @Test
     public void shouldDeleteAllSubtasks() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         manager.clearSubTask();
+
         assertTrue(epic.getSubtaskListId().isEmpty());
         assertTrue(manager.getSubTask().isEmpty());
     }
@@ -295,10 +339,12 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldChangeTask() {
         Task task = addTask();
-        manager.addTask(task);
         Task task1 = new Task(1, "MyTask 323", "Description", Status.IN_PROGRESS, LocalDateTime.of(2020, 9, 19, 14, 1), 10);
+
+        manager.addTask(task);
         manager.changeTask(task1);
         List<Task> tasks = manager.getTask();
+
         assertNotNull(task.getStatus());
         assertEquals(Status.IN_PROGRESS, task1.getStatus());
         assertEquals(List.of(task1), tasks);
@@ -306,13 +352,15 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     public void shouldDeleteAll() {
-        Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
-        Subtask subtask = addSubTask(epic);
-        manager.addSubTask(subtask);
         Task task = addTask();
+        Epic epic = addEpicTask();
+        Subtask subtask = addSubTask(epic);
+
+        manager.addEpicTask(epic);
+        manager.addSubTask(subtask);
         manager.addTask(task);
         manager.clearAll();
+
         assertEquals(Collections.EMPTY_LIST, manager.getSubTask());
         assertEquals(Collections.EMPTY_LIST, manager.getTask());
         assertEquals(Collections.EMPTY_LIST, manager.getEpicTask());
@@ -321,26 +369,32 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldDeleteTaskById() {
         Task task = addTask();
+
         manager.addTask(task);
         manager.delTask(task.getId());
+
         assertEquals(Collections.EMPTY_LIST, manager.getTask());
     }
 
     @Test
     public void shouldDeleteEpicById() {
         Epic epic = addEpicTask();
+
         manager.addEpicTask(epic);
         manager.delEpic(epic.getId());
+
         assertEquals(Collections.EMPTY_LIST, manager.getEpicTask());
     }
 
     @Test
     public void shouldDeleteSubtaskById() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         manager.delSubTask(subtask.getId());
+
         assertEquals(Collections.EMPTY_LIST, manager.getSubTask());
     }
 
@@ -362,8 +416,10 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void shouldReturnEmptyListWhenGetSubtaskByEpicIdIsEmpty() {
         Epic epic = addEpicTask();
+
         manager.addEpicTask(epic);
         List<Subtask> subtasks = manager.getSubtaskListEpics(epic.getId());
+
         assertTrue(subtasks.isEmpty());
     }
 
@@ -392,18 +448,21 @@ abstract class TaskManagerTest<T extends TaskManager> {
         manager.getTaskById(123);
         manager.getSubTaskById(321);
         manager.getEpicById(132);
+
         assertTrue(manager.getHistory().isEmpty());
     }
 
     @Test
     public void shouldReturnHistoryWithTasks() {
         Epic epic = addEpicTask();
-        manager.addEpicTask(epic);
         Subtask subtask = addSubTask(epic);
+
+        manager.addEpicTask(epic);
         manager.addSubTask(subtask);
         manager.getEpicById(epic.getId());
         manager.getSubTaskById(subtask.getId());
         List<Task> list = manager.getHistory();
+
         assertEquals(2, list.size());
         assertTrue(list.contains(subtask));
         assertTrue(list.contains(epic));

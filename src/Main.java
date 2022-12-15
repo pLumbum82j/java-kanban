@@ -2,7 +2,7 @@
  * «Трекер задач»
  *
  * @autor Илья Смирнов
- * @version v7.1 - Начиная с 6-го спринта метод Main переехал в класс FileBackedTasksManager по ТЗ.
+ * @version v7.2 - Начиная с 6-го спринта метод Main переехал в класс FileBackedTasksManager по ТЗ.
  */
 
 //import manager.FileBackedTasksManager;
