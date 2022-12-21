@@ -1,9 +1,13 @@
 package manager;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import http.typeAdapters.LocalDateTimeAdapter;
 import manager.history.HistoryManager;
 import manager.history.InMemoryHistoryManager;
 
 import java.io.File;
+import java.time.LocalDateTime;
 
 /**
  * "Утилитарный класс"
@@ -49,6 +53,12 @@ public class Managers {
      */
     public static FileBackedTasksManager getDefaultFileBackedTaskManager() {
         return new FileBackedTasksManager(taskStorageFile);
+    }
+
+    public static Gson getGson() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
+        return gsonBuilder.create();
     }
 
 }

@@ -4,7 +4,16 @@
  * @autor Илья Смирнов
  * @version v7.2 - Начиная с 6-го спринта метод Main переехал в класс FileBackedTasksManager по ТЗ.
  */
+import http.KVServer;
 
+import java.io.IOException;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        new KVServer().start();
+    }
+}
 //import manager.FileBackedTasksManager;
 //import manager.Managers;
 //import task.Status;
