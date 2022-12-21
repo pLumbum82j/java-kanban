@@ -23,8 +23,8 @@ import static jdk.internal.util.xml.XMLStreamWriter.DEFAULT_CHARSET;
 public class HttpTaskServer {
     private static final int PORT = 8080;
     private HttpServer server;
-    private TaskManager taskManager;
-    private FileBackedTasksManager fileBackedTasksManager;
+    private FileBackedTasksManager taskManager;
+
     private Gson gson;
 
     public HttpTaskServer() throws IOException {
@@ -32,9 +32,8 @@ public class HttpTaskServer {
     }
 
     public HttpTaskServer(FileBackedTasksManager fileBackedTasksManager) throws IOException {
-        //Path file = Path.of("test.csv");
-        this.fileBackedTasksManager = Managers.getDefaultFileBackedTaskManager();
-        //this.fileBackedTasksManager.loadFromFile();
+        this.taskManager = fileBackedTasksManager;
+        this.taskManager.loadFromFile();
         gson = Managers.getGson();
         server = HttpServer.create(new InetSocketAddress("localhost", PORT), 0);
         server.createContext("/tasks", this::handle);
@@ -87,6 +86,7 @@ public class HttpTaskServer {
                     return;
                 } else {
                     String response = gson.toJson(taskManager.getTask());
+                    System.out.println(taskManager);
                     sendText(exchange, response);
                     return;
                 }
