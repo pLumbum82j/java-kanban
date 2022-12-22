@@ -1,6 +1,6 @@
 package manager;
 
-import manager.exceprion.ManagerValidateException;
+import exceprion.ManagerValidateException;
 import manager.history.HistoryManager;
 import task.Epic;
 import task.Status;

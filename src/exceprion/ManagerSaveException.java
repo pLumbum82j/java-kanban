@@ -1,4 +1,4 @@
-package manager.exceprion;
+package exceprion;
 
 /**
  * "Класс собственного исключения"

@@ -1,5 +1,9 @@
 package http;
 
+import exceprion.KVTaskClientLoadException;
+import exceprion.KVTaskClientPutException;
+import exceprion.KVTaskClientRegisterException;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
