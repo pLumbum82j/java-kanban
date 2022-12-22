@@ -5,16 +5,13 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import manager.FileBackedTasksManager;
 import manager.Managers;
-import manager.TaskManager;
 import task.Epic;
 import task.Subtask;
 import task.Task;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
-import java.nio.file.Path;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -86,7 +83,6 @@ public class HttpTaskServer {
                     return;
                 } else {
                     String response = gson.toJson(taskManager.getTask());
-                    System.out.println(taskManager);
                     sendText(exchange, response);
                     return;
                 }

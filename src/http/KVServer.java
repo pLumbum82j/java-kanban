@@ -28,7 +28,37 @@ public class KVServer {
     }
 
     private void load(HttpExchange h) {
-        // TODO Добавьте получение значения по ключу
+        try {
+            System.out.println("\n/load");
+            if (!hasAuth(h)) {
+                System.out.println("Запрос не авторизован, нужен параметр в query API_TOKEN со значением API-ключа");
+                h.sendResponseHeaders(403, 0);
+                return;
+            }
+            if ("GET".equals(h.getRequestMethod())) {
+                String key = h.getRequestURI().getPath().substring("/load/".length());
+                if (key.isEmpty()) {
+                    System.out.println("Key для сохранения пустой. Key указывается в пути: /load/{key}");
+                    h.sendResponseHeaders(400, 0);
+                    return;
+                }
+                if (!data.containsKey(key)) {
+                    System.out.println("Не могу достать данные для ключа '" + key + "', данные отсутствуют");
+                    h.sendResponseHeaders(404, 0);
+                    return;
+                }
+                sendText(h, data.get(key));
+                System.out.println("Значение для ключа " + key + " успешно отправлено в ответ на запрос!");
+                h.sendResponseHeaders(200, 0);
+            } else {
+                System.out.println("/load ждет GET-запрос, а получил: " + h.getRequestMethod());
+                h.sendResponseHeaders(405, 0);
+            }
+        } catch (IOException e) {
+            throw new KVServerLoadException("Ошибка метода load в классе KVServer.", e);
+        } finally {
+            h.close();
+        }
     }
 
     private void save(HttpExchange h) throws IOException {
