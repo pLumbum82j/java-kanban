@@ -51,8 +51,8 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        kvServerTest.stop();
-        httpServerTest.stop();
+        // kvServerTest.stop();
+       // httpServerTest.stop();
 
 
     }

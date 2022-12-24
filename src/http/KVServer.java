@@ -29,8 +29,9 @@ public class KVServer {
     }
 
     /**
-     * "Метод возврата кода сохранённых значений по ключу"
-     * @param - Экземпляр ключа
+     * "Метод возврата сохранённых значений по ключу"
+     *
+     * @param h - Экземпляр ключа
      */
     private void load(HttpExchange h) {
         try {
@@ -65,6 +66,12 @@ public class KVServer {
         }
     }
 
+    /**
+     * "Метод сохранения содержимого тела запроса, привязанное к ключу"
+     *
+     * @param h - Экземпляр ключа
+     * @throws IOException
+     */
     private void save(HttpExchange h) throws IOException {
         try {
             System.out.println("\n/save");
@@ -98,6 +105,12 @@ public class KVServer {
         }
     }
 
+    /**
+     * "Метод регистрации клиента на сервере"
+     *
+     * @param h - Экземпляр ключа
+     * @throws IOException
+     */
     private void register(HttpExchange h) throws IOException {
         try {
             System.out.println("\n/register");
@@ -112,6 +125,9 @@ public class KVServer {
         }
     }
 
+    /**
+     * "Метод запуска сервера"
+     */
     public void start() {
         System.out.println("Запускаем сервер на порту " + PORT);
         System.out.println("Открой в браузере http://localhost:" + PORT + "/");
@@ -119,24 +135,52 @@ public class KVServer {
         server.start();
     }
 
+    /**
+     * "Метод остановки сервера"
+     */
     public void stop() {
         server.stop(0);
         System.out.println("Сервер на порту " + PORT + " был остановлен");
     }
 
+    /**
+     * "Метод генерации API-Token'a"
+     *
+     * @return Сгенереированный API-Token
+     */
     private String generateApiToken() {
         return "" + System.currentTimeMillis();
     }
 
+    /**
+     * "Метод проверки авторизации по API-Token'у"
+     *
+     * @param h - Экземпляр ключа
+     * @return Результат TRUE/FALSE
+     */
     protected boolean hasAuth(HttpExchange h) {
         String rawQuery = h.getRequestURI().getRawQuery();
         return rawQuery != null && (rawQuery.contains("API_TOKEN=" + apiToken) || rawQuery.contains("API_TOKEN=DEBUG"));
     }
 
+    /**
+     * "Метод чтения текста из тела запроса"
+     *
+     * @param h - Экземпляр тела HTTP запроса
+     * @return Преобразованный тело запроса
+     * @throws IOException
+     */
     protected String readText(HttpExchange h) throws IOException {
         return new String(h.getRequestBody().readAllBytes(), UTF_8);
     }
 
+    /**
+     * "Метод отправки ответа"
+     *
+     * @param h
+     * @param text
+     * @throws IOException
+     */
     protected void sendText(HttpExchange h, String text) throws IOException {
         byte[] resp = text.getBytes(UTF_8);
         h.getResponseHeaders().add("Content-Type", "application/json");
