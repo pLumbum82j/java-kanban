@@ -56,7 +56,7 @@ public class KVServer {
                 h.sendResponseHeaders(405, 0);
             }
         } catch (IOException e) {
-            throw new KVServerLoadException("Ошибка метода load в классе KVServer.", e);
+            //throw new KVServerLoadException("Ошибка метода load в классе KVServer.", e);
         } finally {
             h.close();
         }
@@ -118,7 +118,7 @@ public class KVServer {
 
     public void stop() {
         server.stop(0);
-        System.out.println("Сервер на порту " + PORT + "был остановлен");
+        System.out.println("Сервер на порту " + PORT + " был остановлен");
     }
 
     private String generateApiToken() {

@@ -21,7 +21,6 @@ public class HttpTaskManager extends FileBackedTasksManager {
         super(null);
         this.gson = Managers.getGson();
         this.client = new KVTaskClient();
-        loadFromFile();
     }
 
     @Override
@@ -89,6 +88,7 @@ public class HttpTaskManager extends FileBackedTasksManager {
         client.put("subtasks", jsonSubTask);
         String jsonHistory = gson.toJson(getHistory());
         client.put("history", jsonHistory);
+        loadFromFile();
     }
 
     protected Task findTask(Integer id) {
@@ -99,5 +99,6 @@ public class HttpTaskManager extends FileBackedTasksManager {
             return epics.get(id);
         }
         return subtasks.get(id);
+
     }
 }

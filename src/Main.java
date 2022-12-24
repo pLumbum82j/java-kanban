@@ -5,14 +5,12 @@
  * @version v7.2 - Начиная с 6-го спринта метод Main переехал в класс FileBackedTasksManager по ТЗ.
  */
 import com.google.gson.Gson;
-import http.HttpTaskManager;
 import http.HttpTaskServer;
 import http.KVServer;
 import manager.Managers;
 import task.Status;
 import task.Task;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -21,12 +19,14 @@ import java.net.http.HttpResponse;
 
 public class Main {
     static Gson gson= Managers.getGson();
-    static KVServer kvserv;
+    static KVServer kvServerTest;
+    static HttpTaskServer httpServerTest;
     public static void main(String[] args) throws IOException {
-        kvserv = new KVServer();
-        kvserv.start();
-        HttpTaskServer server = new HttpTaskServer();
-        server.start();
+        kvServerTest = new KVServer();
+        kvServerTest.start();
+        httpServerTest = new HttpTaskServer();
+        httpServerTest.start();
+
         Task task3 = new Task("MyTask 3-3", "Description", Status.DONE);
         String str = gson.toJson(task3);
         HttpClient client = HttpClient.newHttpClient();
@@ -50,8 +50,9 @@ public class Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        kvserv.stop();
-        server.stop();
+
+        kvServerTest.stop();
+        httpServerTest.stop();
 
 
     }

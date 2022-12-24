@@ -29,7 +29,7 @@ public class HttpTaskServer {
 
     public HttpTaskServer(HttpTaskManager defaultHttpTaskManager) throws IOException {
         this.httpTaskManager = defaultHttpTaskManager;
-        //this.taskManager.loadFromFile();
+        this.httpTaskManager.loadFromFile();
         gson = Managers.getGson();
         server = HttpServer.create(new InetSocketAddress("localhost", PORT), 0);
         server.createContext("/tasks", this::handle);
@@ -216,7 +216,7 @@ public class HttpTaskServer {
 
     public void stop() {
         server.stop(0);
-        System.out.println("Сервер на порту " + PORT + "был остановлен");
+        System.out.println("Сервер на порту " + PORT + " был остановлен");
     }
 
 
