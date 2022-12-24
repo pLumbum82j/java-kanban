@@ -2,6 +2,7 @@ package manager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import http.HttpTaskManager;
 import http.typeAdapters.LocalDateTimeAdapter;
 import manager.history.HistoryManager;
 import manager.history.InMemoryHistoryManager;
@@ -19,7 +20,7 @@ public class Managers {
     /**
      * "Метод трекера по умолчанию"
      *
-     * @return Объекты класса InMemoryTaskManager
+     * @return Объект класса InMemoryTaskManager
      */
     public static TaskManager getDefault() {
         return new InMemoryTaskManager();
@@ -28,7 +29,7 @@ public class Managers {
     /**
      * "Метод истории просмотров"
      *
-     * @return Объекты класса InMemoryHistoryManager
+     * @return Объект класса InMemoryHistoryManager
      */
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
@@ -49,20 +50,30 @@ public class Managers {
     /**
      * "Статический метод создания файла хранения задач"
      *
-     * @return
+     * @return Объект класса FileBackedTasksManager
      */
     public static FileBackedTasksManager getDefaultFileBackedTaskManager() {
         return new FileBackedTasksManager(taskStorageFile);
     }
 
+    /**
+     * "GSON метод конвератации времени в формат JSON и обратно"
+     *
+     * @return Объект gsonBuilder
+     */
     public static Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
         return gsonBuilder.create();
     }
 
-    public static http.HttpTaskManager getDefaultHttpTaskManager() {
-        return new http.HttpTaskManager();
+    /**
+     * "Метод создания HTTP Task Manager'a"
+     *
+     * @return Объект класса HttpTaskManager
+     */
+    public static HttpTaskManager getDefaultHttpTaskManager() {
+        return new HttpTaskManager();
     }
 
 }

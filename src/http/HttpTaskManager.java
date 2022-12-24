@@ -12,6 +12,9 @@ import task.Task;
 import java.lang.reflect.Type;
 import java.util.List;
 
+/**
+ * "Класс реализующий основные методы трекера задач и добавление/считывание информации KVTaskClient"
+ */
 public class HttpTaskManager extends FileBackedTasksManager {
     private final KVTaskClient client;
     private final Gson gson;

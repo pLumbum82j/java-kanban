@@ -1,8 +1,11 @@
 package exceprion;
 
-public class KVTaskClientLoadException extends RuntimeException{
-    public KVTaskClientLoadException(String s, Throwable exception) {
-        System.out.println(s);
+/**
+ * "Класс собственного исключения при работе с выгрузкой информации из клиента"
+ */
+public class KVTaskClientLoadException extends RuntimeException {
+    public KVTaskClientLoadException(String message, Throwable exception) {
+        System.out.println(message);
         exception.printStackTrace();
     }
 }

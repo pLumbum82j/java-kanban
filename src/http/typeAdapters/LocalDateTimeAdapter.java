@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * "Класс сериализации и десериализации LocalDateTime"
+ */
 public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
     private String timeDatePattern = "dd.MM.yyyy HH:mm";
 

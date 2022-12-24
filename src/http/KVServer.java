@@ -12,7 +12,7 @@ import com.sun.net.httpserver.HttpServer;
 import exceprion.KVServerLoadException;
 
 /**
- * Постман: https://www.getpostman.com/collections/a83b61d9e1c81c10575c
+ * "Класс реализующий некий облачный сервер хранения задач"
  */
 public class KVServer {
     public static final int PORT = 8078;
@@ -28,6 +28,10 @@ public class KVServer {
         server.createContext("/load", this::load);
     }
 
+    /**
+     * "Метод возврата кода сохранённых значений по ключу"
+     * @param - Экземпляр ключа
+     */
     private void load(HttpExchange h) {
         try {
             System.out.println("\n/load");
@@ -50,7 +54,6 @@ public class KVServer {
                 }
                 sendText(h, data.get(key));
                 System.out.println("Значение для ключа " + key + " успешно отправлено в ответ на запрос!");
-                //h.sendResponseHeaders(200, 0);
             } else {
                 System.out.println("/load ждет GET-запрос, а получил: " + h.getRequestMethod());
                 h.sendResponseHeaders(405, 0);

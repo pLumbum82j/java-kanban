@@ -16,6 +16,9 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static jdk.internal.util.xml.XMLStreamWriter.DEFAULT_CHARSET;
 
+/**
+ * "Класс реализующий сервер для работы с запросами"
+ */
 public class HttpTaskServer {
     private static final int PORT = 8080;
     private final HttpServer server;
