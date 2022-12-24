@@ -7,6 +7,7 @@ import http.KVServer;
 import manager.Managers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import task.*;
 
@@ -174,31 +175,31 @@ public class HttpTaskManagerTest {
     }
 //
 //
-//    @Test
-//    @DisplayName("HttpTaskManagerTest.addSubTask.Проверка создания SubTask")
-//    void addSubTask() throws IOException, InterruptedException {
-//        Subtask newSubtask = new Subtask(2, "NewMySubtask 321", "Description", Status.NEW, LocalDateTime.of(2014, 9, 19, 14, 37), 10);
-//        fileBackedTasksManager.addSubTask(newSubtask);
-//        String str = gson.toJson(newSubtask);
-//        HttpClient client = HttpClient.newHttpClient();
-//        URI url = URI.create("http://localhost:8080/tasks/subtask");
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(url)
-//                .POST(HttpRequest.BodyPublishers.ofString(str))
-//                .header("Content-Type", "application/json")
-//                .build();
-//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        assertEquals(200, response.statusCode());
-//        client = HttpClient.newHttpClient();
-//        url = URI.create("http://localhost:8080/tasks/subtask?id=3");
-//        request = HttpRequest.newBuilder()
-//                .uri(url)
-//                .GET()
-//                .build();
-//        response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        assertEquals(200, response.statusCode());
-//    }
-//
+    @Test
+    @DisplayName("HttpTaskManagerTest.addSubTask.Проверка создания SubTask")
+    void addSubTask() throws IOException, InterruptedException {
+        Subtask newSubtask = new Subtask(2, "NewMySubtask 321", "Description", Status.NEW, LocalDateTime.of(2014, 9, 19, 14, 37), 10);
+        //fileBackedTasksManager.addSubTask(newSubtask);
+        String str = gson.toJson(newSubtask);
+        HttpClient client = HttpClient.newHttpClient();
+        URI url = URI.create("http://localhost:8080/tasks/subtask");
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(url)
+                .POST(HttpRequest.BodyPublishers.ofString(str))
+                .header("Content-Type", "application/json")
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, response.statusCode());
+        client = HttpClient.newHttpClient();
+        url = URI.create("http://localhost:8080/tasks/subtask?id=3");
+        request = HttpRequest.newBuilder()
+                .uri(url)
+                .GET()
+                .build();
+        response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, response.statusCode());
+    }
+
 //
 //    @Test
 //    @DisplayName("HttpTaskManagerTest.deleteAllTask.Проверка удаления удаления Task")

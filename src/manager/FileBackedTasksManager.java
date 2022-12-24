@@ -98,7 +98,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     @Override
     public Task addTask(Task task) {
         super.addTask(task);
-      //  save();
+         save();
         return task;
     }
 
@@ -108,12 +108,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         save();
         return epic;
     }
-
-//    @Override
-//    public List<Task> getHistory() {
-//        // save();
-//        return super.getHistory();
-//    }
 
     @Override
     public void clearAll() {

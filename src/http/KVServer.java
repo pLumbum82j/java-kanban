@@ -50,13 +50,13 @@ public class KVServer {
                 }
                 sendText(h, data.get(key));
                 System.out.println("Значение для ключа " + key + " успешно отправлено в ответ на запрос!");
-                h.sendResponseHeaders(200, 0);
+                //h.sendResponseHeaders(200, 0);
             } else {
                 System.out.println("/load ждет GET-запрос, а получил: " + h.getRequestMethod());
                 h.sendResponseHeaders(405, 0);
             }
         } catch (IOException e) {
-            //throw new KVServerLoadException("Ошибка метода load в классе KVServer.", e);
+            throw new KVServerLoadException("Ошибка метода load в классе KVServer.", e);
         } finally {
             h.close();
         }
@@ -66,7 +66,7 @@ public class KVServer {
         try {
             System.out.println("\n/save");
             if (!hasAuth(h)) {
-                System.out.println("Запрос неавторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
+                System.out.println("Запрос не авторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
                 h.sendResponseHeaders(403, 0);
                 return;
             }

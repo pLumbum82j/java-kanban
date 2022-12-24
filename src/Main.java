@@ -46,7 +46,7 @@ public class Main {
                 .uri(url)
                 .GET()
                 .build();
-        response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
