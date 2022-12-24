@@ -4,16 +4,55 @@
  * @autor Илья Смирнов
  * @version v7.2 - Начиная с 6-го спринта метод Main переехал в класс FileBackedTasksManager по ТЗ.
  */
+import com.google.gson.Gson;
+import http.HttpTaskManager;
 import http.HttpTaskServer;
 import http.KVServer;
+import manager.Managers;
+import task.Status;
+import task.Task;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class Main {
+    static Gson gson= Managers.getGson();
+    static KVServer kvserv;
     public static void main(String[] args) throws IOException {
-        new KVServer().start();
+        kvserv = new KVServer();
+        kvserv.start();
         HttpTaskServer server = new HttpTaskServer();
         server.start();
+        Task task3 = new Task("MyTask 3-3", "Description", Status.DONE);
+        String str = gson.toJson(task3);
+        HttpClient client = HttpClient.newHttpClient();
+        URI url = URI.create("http://localhost:8080/tasks/task");
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(url)
+                .POST(HttpRequest.BodyPublishers.ofString(str))
+                .header("Content-Type", "application/json")
+                .build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        client = HttpClient.newHttpClient();
+        url = URI.create("http://localhost:8080/tasks/task?id=3");
+        request = HttpRequest.newBuilder()
+                .uri(url)
+                .GET()
+                .build();
+        response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        kvserv.stop();
+        server.stop();
+
 
     }
 }

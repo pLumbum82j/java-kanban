@@ -61,4 +61,8 @@ public class Managers {
         return gsonBuilder.create();
     }
 
+    public static http.HttpTaskManager getDefaultHttpTaskManager() {
+        return new http.HttpTaskManager();
+    }
+
 }

@@ -3,7 +3,6 @@ package http;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-import manager.FileBackedTasksManager;
 import manager.Managers;
 import task.Epic;
 import task.Subtask;
@@ -19,29 +18,23 @@ import static jdk.internal.util.xml.XMLStreamWriter.DEFAULT_CHARSET;
 
 public class HttpTaskServer {
     private static final int PORT = 8080;
-    private HttpServer server;
-    private FileBackedTasksManager taskManager;
+    private final HttpServer server;
+    private final HttpTaskManager httpTaskManager;
 
-    private Gson gson;
+    private final Gson gson;
 
     public HttpTaskServer() throws IOException {
-        this(Managers.getDefaultFileBackedTaskManager());
+        this(Managers.getDefaultHttpTaskManager());
     }
 
-    public HttpTaskServer(FileBackedTasksManager fileBackedTasksManager) throws IOException {
-        this.taskManager = fileBackedTasksManager;
-        this.taskManager.loadFromFile();
+    public HttpTaskServer(HttpTaskManager defaultHttpTaskManager) throws IOException {
+        this.httpTaskManager = defaultHttpTaskManager;
+        //this.taskManager.loadFromFile();
         gson = Managers.getGson();
         server = HttpServer.create(new InetSocketAddress("localhost", PORT), 0);
         server.createContext("/tasks", this::handle);
         System.out.println("HTTP-сервер запущен на " + PORT + " порту!");
     }
-
-//    public static void main(String[] args) throws IOException {
-//        HttpTaskServer httpTaskServer = new HttpTaskServer();
-//        httpTaskServer.start();
-//        httpTaskServer.stop();
-//    }
 
     private void handle(HttpExchange exchange) {
         try {
@@ -77,12 +70,12 @@ public class HttpTaskServer {
             case "GET": {
                 if (query != null) {
                     String taskId = query.substring(3);
-                    Task task = taskManager.getTaskById(Integer.parseInt(taskId));
+                    Task task = httpTaskManager.getTaskById(Integer.parseInt(taskId));
                     String response = gson.toJson(task);
                     sendText(exchange, response);
                     return;
                 } else {
-                    String response = gson.toJson(taskManager.getTask());
+                    String response = gson.toJson(httpTaskManager.getTask());
                     sendText(exchange, response);
                     return;
                 }
@@ -90,7 +83,7 @@ public class HttpTaskServer {
             case "POST": {
                 try {
                     Task task = gson.fromJson(body, Task.class);
-                    taskManager.addTask(task);
+                    httpTaskManager.addTask(task);
                     exchange.sendResponseHeaders(200, 0);
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -100,10 +93,10 @@ public class HttpTaskServer {
             case "DELETE": {
                 if (query != null) {
                     String taskId = query.substring(3);
-                    taskManager.delTask(Integer.parseInt(taskId));
+                    httpTaskManager.delTask(Integer.parseInt(taskId));
                     exchange.sendResponseHeaders(200, 0);
                 } else {
-                    taskManager.clearTask();
+                    httpTaskManager.clearTask();
                     exchange.sendResponseHeaders(200, 0);
                 }
             }
@@ -115,7 +108,6 @@ public class HttpTaskServer {
     }
 
     private void handleEpic(HttpExchange exchange) throws IOException {
-
         String requestMethod = exchange.getRequestMethod();
         String query = exchange.getRequestURI().getQuery();
         InputStream inputStream = exchange.getRequestBody();
@@ -124,12 +116,12 @@ public class HttpTaskServer {
             case "GET": {
                 if (query != null) {
                     String idEpic = query.substring(3);
-                    Epic epic = (Epic) taskManager.getEpicById(Integer.parseInt(idEpic));
+                    Epic epic = (Epic) httpTaskManager.getEpicById(Integer.parseInt(idEpic));
                     String response = gson.toJson(epic);
                     sendText(exchange, response);
                     return;
                 } else {
-                    String response = gson.toJson(taskManager.getEpicTask());
+                    String response = gson.toJson(httpTaskManager.getEpicTask());
                     sendText(exchange, response);
                     return;
                 }
@@ -137,7 +129,7 @@ public class HttpTaskServer {
             case "POST": {
                 try {
                     Epic epic = gson.fromJson(body, Epic.class);
-                    taskManager.addEpicTask(epic);
+                    httpTaskManager.addEpicTask(epic);
                     exchange.sendResponseHeaders(200, 0);
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -147,10 +139,10 @@ public class HttpTaskServer {
             case "DELETE": {
                 if (query != null) {
                     String epicId = query.substring(3);
-                    taskManager.delEpic(Integer.parseInt(epicId));
+                    httpTaskManager.delEpic(Integer.parseInt(epicId));
                     exchange.sendResponseHeaders(200, 0);
                 } else {
-                    taskManager.clearEpic();
+                    httpTaskManager.clearEpic();
                     exchange.sendResponseHeaders(200, 0);
                 }
             }
@@ -170,12 +162,12 @@ public class HttpTaskServer {
             case "GET": {
                 if (query != null) {
                     String subtaskId = query.substring(3);
-                    Subtask subtask = (Subtask) taskManager.getSubTaskById(Integer.parseInt(subtaskId));
+                    Subtask subtask = (Subtask) httpTaskManager.getSubTaskById(Integer.parseInt(subtaskId));
                     String response = gson.toJson(subtask);
                     sendText(exchange, response);
                     return;
                 } else {
-                    String response = gson.toJson(taskManager.getSubTask());
+                    String response = gson.toJson(httpTaskManager.getSubTask());
                     sendText(exchange, response);
                     return;
                 }
@@ -183,7 +175,7 @@ public class HttpTaskServer {
             case "POST": {
                 try {
                     Subtask subtask = gson.fromJson(body, Subtask.class);
-                    taskManager.addSubTask(subtask);
+                    httpTaskManager.addSubTask(subtask);
                     exchange.sendResponseHeaders(200, 0);
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -193,10 +185,10 @@ public class HttpTaskServer {
             case "DELETE": {
                 if (query != null) {
                     String subtaskId = query.substring(3);
-                    taskManager.delSubTask(Integer.parseInt(subtaskId));
+                    httpTaskManager.delSubTask(Integer.parseInt(subtaskId));
                     exchange.sendResponseHeaders(200, 0);
                 } else {
-                    taskManager.clearSubTask();
+                    httpTaskManager.clearSubTask();
                     exchange.sendResponseHeaders(200, 0);
                 }
             }
@@ -210,7 +202,7 @@ public class HttpTaskServer {
     private void handleHistory(HttpExchange exchange) throws IOException {
         String requestMethod = exchange.getRequestMethod();
         if (requestMethod.equals("GET")) {
-            List<Task> history = taskManager.getHistory();
+            List<Task> history = httpTaskManager.getHistory();
             String response = gson.toJson(history);
             sendText(exchange, response);
         }
@@ -224,7 +216,7 @@ public class HttpTaskServer {
 
     public void stop() {
         server.stop(0);
-        System.out.println("Остановили сервер на порту " + PORT);
+        System.out.println("Сервер на порту " + PORT + "был остановлен");
     }
 
 

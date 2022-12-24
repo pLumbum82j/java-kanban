@@ -21,6 +21,7 @@ public class HttpTaskManager extends FileBackedTasksManager {
         super(null);
         this.gson = Managers.getGson();
         this.client = new KVTaskClient();
+        loadFromFile();
     }
 
     @Override

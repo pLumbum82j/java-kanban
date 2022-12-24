@@ -8,7 +8,6 @@ import task.Task;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * "Класс сохранения менеджера задач в файл"
@@ -110,11 +109,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         return epic;
     }
 
-    @Override
-    public List<Task> getHistory() {
-        save();
-        return super.getHistory();
-    }
+//    @Override
+//    public List<Task> getHistory() {
+//        // save();
+//        return super.getHistory();
+//    }
 
     @Override
     public void clearAll() {
