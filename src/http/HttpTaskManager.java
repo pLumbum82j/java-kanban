@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * "Класс реализующий основные методы трекера задач и добавление/считывание информации KVTaskClient"
+ * "Класс реализующий основные методы трекера (менеджера) задач"
  */
 public class HttpTaskManager extends FileBackedTasksManager {
     private final KVTaskClient client;
@@ -26,6 +26,9 @@ public class HttpTaskManager extends FileBackedTasksManager {
         this.client = new KVTaskClient();
     }
 
+    /**
+     * "Переопределенный метод считывания информации с KVServer'a через KVClient"
+     */
     @Override
     public void loadFromFile() {
         Type tasksType = new TypeToken<List<Task>>() {
@@ -81,6 +84,9 @@ public class HttpTaskManager extends FileBackedTasksManager {
         }
     }
 
+    /**
+     * "Переопределенный метод сохранения задач в объект KVClient"
+     */
     @Override
     public void save() {
         String jsonTasks = gson.toJson(getTask());
@@ -91,7 +97,6 @@ public class HttpTaskManager extends FileBackedTasksManager {
         client.put("subtasks", jsonSubTask);
         String jsonHistory = gson.toJson(getHistory());
         client.put("history", jsonHistory);
-        loadFromFile();
     }
 
     protected Task findTask(Integer id) {

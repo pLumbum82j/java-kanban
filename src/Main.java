@@ -44,7 +44,7 @@ public class Main {
         url = URI.create("http://localhost:8080/tasks/task?id=1");
         request = HttpRequest.newBuilder()
                 .uri(url)
-                .DELETE()
+                .GET()
                 .build();
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (InterruptedException e) {

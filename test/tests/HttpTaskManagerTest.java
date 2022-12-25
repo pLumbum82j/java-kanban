@@ -39,6 +39,9 @@ public class HttpTaskManagerTest {
 
         Task newTask = new Task("NewMyTask 123", "Description", Status.NEW,
                 LocalDateTime.of(2021, 9, 19, 17, 22), 10);
+        Epic newEpic = new Epic("NewMyEpic 321", "Description", Status.NEW);
+        Subtask newSub = new Subtask(2, "NewMySub 231", "Description", Status.NEW,
+                LocalDateTime.of(2023, 9, 19, 17, 22), 12);
 
         String str = gson.toJson(newTask);
         HttpClient client = HttpClient.newHttpClient();
@@ -48,14 +51,7 @@ public class HttpTaskManagerTest {
                 .POST(HttpRequest.BodyPublishers.ofString(str))
                 .header("Content-Type", "application/json")
                 .build();
-        HttpResponse<String> response = null;
-
-        response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-
-        assertEquals(200, response.statusCode());
-
-        Epic newEpic = new Epic("NewMyEpic 321", "Description", Status.NEW);
+        HttpResponse<String>  responseTask = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         str = gson.toJson(newEpic);
         client = HttpClient.newHttpClient();
@@ -65,14 +61,7 @@ public class HttpTaskManagerTest {
                 .POST(HttpRequest.BodyPublishers.ofString(str))
                 .header("Content-Type", "application/json")
                 .build();
-
-        response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-
-        assertEquals(200, response.statusCode());
-
-        Subtask newSub = new Subtask(2, "NewMySub 231", "Description", Status.NEW,
-                LocalDateTime.of(2023, 9, 19, 17, 22), 12);
+        HttpResponse<String>  responseEpic = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         str = gson.toJson(newSub);
         client = HttpClient.newHttpClient();
@@ -82,9 +71,11 @@ public class HttpTaskManagerTest {
                 .POST(HttpRequest.BodyPublishers.ofString(str))
                 .header("Content-Type", "application/json")
                 .build();
-        response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String>  responseSub = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, responseTask.statusCode(), "При успешном запросе возвращается статус код: 200");
+        assertEquals(200, responseEpic.statusCode(), "При успешном запросе возвращается статус код: 200");
+        assertEquals(200, responseSub.statusCode(), "При успешном запросе возвращается статус код: 200");
 
 
     }
@@ -107,7 +98,7 @@ public class HttpTaskManagerTest {
         }.getType();
         List<Task> list = gson.fromJson(response.body(), taskType);
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
         assertNotNull(list, "Задачи не возвращаются");
         assertEquals(1, list.size(), "Не верное количество задач");
     }
@@ -126,7 +117,7 @@ public class HttpTaskManagerTest {
         }.getType();
         List<Epic> list = gson.fromJson(response.body(), taskType);
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
         assertNotNull(list, "Задачи не возвращаются");
         assertEquals(1, list.size(), "Не верное количество задач");
     }
@@ -145,7 +136,7 @@ public class HttpTaskManagerTest {
         }.getType();
         List<Subtask> list = gson.fromJson(response.body(), taskType);
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
         assertNotNull(list, "Задачи не возвращаются");
         assertEquals(1, list.size(), "Не верное количество задач");
     }
@@ -163,7 +154,7 @@ public class HttpTaskManagerTest {
         }.getType();
         Task received = gson.fromJson(response.body(), taskType);
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
         assertNotNull(received, "Задачи не возвращаются");
     }
 
@@ -180,7 +171,7 @@ public class HttpTaskManagerTest {
         }.getType();
         Task received = gson.fromJson(response.body(), taskType);
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
         assertNotNull(received, "Задачи не возвращаются");
     }
 
@@ -197,7 +188,7 @@ public class HttpTaskManagerTest {
         }.getType();
         Task received = gson.fromJson(response.body(), taskType);
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
         assertNotNull(received, "Задачи не возвращаются");
     }
 
@@ -226,7 +217,7 @@ public class HttpTaskManagerTest {
                 .build();
         response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
     }
 
 
@@ -255,7 +246,7 @@ public class HttpTaskManagerTest {
                 .build();
         response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
     }
 
 
@@ -272,7 +263,7 @@ public class HttpTaskManagerTest {
         client.send(request, HttpResponse.BodyHandlers.ofString());
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertNotEquals(response.statusCode() == 200, "При успешном запросе возвращается статус код: 200");
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
     }
 
     @Test
@@ -288,7 +279,7 @@ public class HttpTaskManagerTest {
         client.send(request, HttpResponse.BodyHandlers.ofString());
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertNotEquals(response.statusCode() == 200, "При успешном запросе возвращается статус код: 200");
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
     }
 
     @Test
@@ -304,7 +295,7 @@ public class HttpTaskManagerTest {
         client.send(request, HttpResponse.BodyHandlers.ofString());
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(200, response.statusCode(), "Успешный статус кода: 200");
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
     }
 
     @Test
@@ -319,7 +310,7 @@ public class HttpTaskManagerTest {
                 .build();
         HttpResponse<String>  response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(200, response.statusCode(), "Успешный статус кода: 200");
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
     }
 
     @Test
@@ -334,7 +325,7 @@ public class HttpTaskManagerTest {
                 .build();
         HttpResponse<String>  response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(200, response.statusCode(), "Успешный статус кода: 200");
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
     }
 
     @Test
@@ -349,7 +340,7 @@ public class HttpTaskManagerTest {
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(200, response.statusCode(), "Успешный статус кода: 200");
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
     }
 
 
@@ -364,7 +355,7 @@ public class HttpTaskManagerTest {
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(200, response.statusCode());
+        assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
     }
 
 }
