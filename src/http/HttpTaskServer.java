@@ -114,10 +114,6 @@ public class HttpTaskServer {
                     exchange.sendResponseHeaders(200, 0);
                 }
             }
-            default: {
-                System.out.println("Ждём GET/POST/DELETE, а получили - " + requestMethod);
-                exchange.sendResponseHeaders(405, 0);
-            }
         }
     }
 
@@ -166,11 +162,7 @@ public class HttpTaskServer {
                     exchange.sendResponseHeaders(200, 0);
                 }
             }
-            default: {
-                System.out.println("Ждём GET/POST/DELETE, а получили - " + requestMethod);
-                exchange.sendResponseHeaders(405, 0);
-            }
-        }
+         }
     }
 
     /**
@@ -218,11 +210,7 @@ public class HttpTaskServer {
                     exchange.sendResponseHeaders(200, 0);
                 }
             }
-            default: {
-                System.out.println("Ждём GET/POST/DELETE, а получили - " + requestMethod);
-                exchange.sendResponseHeaders(405, 0);
-            }
-        }
+         }
     }
 
     /**
