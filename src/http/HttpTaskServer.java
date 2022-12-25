@@ -39,6 +39,11 @@ public class HttpTaskServer {
         System.out.println("HTTP-сервер запущен на " + PORT + " порту!");
     }
 
+    /**
+     * "Метод обработки запроса по эндпоинту"
+     *
+     * @param exchange Экземпляр запроса
+     */
     private void handle(HttpExchange exchange) {
         try {
             final String path = exchange.getRequestURI().getPath().replaceFirst("/tasks/", "");
@@ -64,6 +69,12 @@ public class HttpTaskServer {
         }
     }
 
+    /**
+     * "Метод обработки эндпоинта Task"
+     *
+     * @param exchange Экземпляр запроса
+     * @throws IOException
+     */
     private void handleTasks(HttpExchange exchange) throws IOException {
         String requestMethod = exchange.getRequestMethod();
         String query = exchange.getRequestURI().getQuery();
@@ -110,6 +121,12 @@ public class HttpTaskServer {
         }
     }
 
+    /**
+     * "Метод обработки эндпоинта Epic'a"
+     *
+     * @param exchange Экземпляр запроса
+     * @throws IOException
+     */
     private void handleEpic(HttpExchange exchange) throws IOException {
         String requestMethod = exchange.getRequestMethod();
         String query = exchange.getRequestURI().getQuery();
@@ -156,6 +173,12 @@ public class HttpTaskServer {
         }
     }
 
+    /**
+     * "Метод обработки эндпоинта Subtask'a"
+     *
+     * @param exchange Экземпляр запроса
+     * @throws IOException
+     */
     private void handleSubtask(HttpExchange exchange) throws IOException {
         String requestMethod = exchange.getRequestMethod();
         String query = exchange.getRequestURI().getQuery();
@@ -202,6 +225,12 @@ public class HttpTaskServer {
         }
     }
 
+    /**
+     * "Метод обработки эндпоинта History"
+     *
+     * @param exchange Экземпляр запроса
+     * @throws IOException
+     */
     private void handleHistory(HttpExchange exchange) throws IOException {
         String requestMethod = exchange.getRequestMethod();
         if (requestMethod.equals("GET")) {
@@ -211,22 +240,41 @@ public class HttpTaskServer {
         }
     }
 
+    /**
+     * "Метод запуска сервера"
+     */
     public void start() {
         System.out.println("Запускаем сервер на порту " + PORT);
         System.out.println("Открой в браузере http://localhost:" + PORT + "/");
         server.start();
     }
 
+    /**
+     * "Метод остановки сервера"
+     */
     public void stop() {
         server.stop(0);
         System.out.println("Сервер на порту " + PORT + " был остановлен");
     }
 
-
+    /**
+     * "Метод чтения текста из тела запроса"
+     *
+     * @param h - Экземпляр тела HTTP запроса
+     * @return Преобразованный тело запроса
+     * @throws IOException
+     */
     protected String readText(HttpExchange h) throws IOException {
         return new String(h.getRequestBody().readAllBytes(), UTF_8);
     }
 
+    /**
+     * "Метод отправки ответа"
+     *
+     * @param h
+     * @param text
+     * @throws IOException
+     */
     protected void sendText(HttpExchange h, String text) throws IOException {
         byte[] resp = text.getBytes(UTF_8);
         h.getResponseHeaders().add("Content-Type", "application/json");
