@@ -260,7 +260,6 @@ public class HttpTaskManagerTest {
                 .DELETE()
                 .header("Content-Type", "application/json")
                 .build();
-        client.send(request, HttpResponse.BodyHandlers.ofString());
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
@@ -276,7 +275,6 @@ public class HttpTaskManagerTest {
                 .DELETE()
                 .header("Content-Type", "application/json")
                 .build();
-        client.send(request, HttpResponse.BodyHandlers.ofString());
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
@@ -292,7 +290,6 @@ public class HttpTaskManagerTest {
                 .DELETE()
                 .header("Content-Type", "application/json")
                 .build();
-        client.send(request, HttpResponse.BodyHandlers.ofString());
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         assertEquals(200, response.statusCode(), "При успешном запросе возвращается статус код: 200");
