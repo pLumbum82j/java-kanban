@@ -8,6 +8,9 @@ import task.Task;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * "Класс сохранения менеджера задач в файл"
@@ -42,6 +45,15 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     break;
                 }
                 generatorId = CSVTaskFormat.fillingTasks(generatorId, input, tasks, epics, subtasks);
+            }
+            for (Subtask sub : subtasks.values())
+                if (sub.getEpicId() != 0){
+                    ArrayList<Integer> subListidss = new ArrayList<>();
+                    subListidss.add(sub.getId());
+                    epics.get(sub.getEpicId()).setSubtaskListId(subListidss);
+                }
+            for (Epic epic : epics.values()) {
+                updateTimeEpic(epic);
             }
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка при загрузке из файла");
@@ -98,7 +110,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     @Override
     public Task addTask(Task task) {
         super.addTask(task);
-         save();
+        save();
         return task;
     }
 
@@ -200,8 +212,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         Epic epic3 = new Epic("MyEpic 3-7", "Description", Status.DONE);
         Epic epic4 = new Epic("MyEpic 4-8", "Description");
         Subtask subtask1 = new Subtask(5, "MySubtask 1-9", "Description");
-        Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", Status.IN_PROGRESS,LocalDateTime.now(),10);
-        Subtask subtask3 = new Subtask(5, "MySubtask 3-11", "Description", Status.DONE);
+        Subtask subtask2 = new Subtask(5, "MySubtask 2-10", "Description", Status.IN_PROGRESS, LocalDateTime.now(), 10);
+        Subtask subtask3 = new Subtask(6, "MySubtask 3-11", "Description", Status.DONE);
         Subtask subtask4 = new Subtask(6, "MySubtask 4-12", "Description");
 
 
